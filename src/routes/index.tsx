@@ -22,6 +22,10 @@ import chilliImg from "@/assets/chilli-powder.jpg";
 import healthMixImg from "@/assets/health-mix.jpg";
 import sacksImg from "@/assets/sacks.jpg";
 import machineImg from "@/assets/machine.jpg";
+import vfmShopAsset from "@/assets/vfm-shop.png.asset.json";
+import vfmInteriorAsset from "@/assets/vfm-interior.png.asset.json";
+const vfmShop = vfmShopAsset.url;
+const vfmInterior = vfmInteriorAsset.url;
 
 const PHONE = "+919480975441";
 const WHATSAPP = "919480975441";
@@ -200,6 +204,7 @@ function Hero() {
         height={1100}
       />
       <div className="absolute inset-0 -z-10 bg-[var(--gradient-hero)]" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 pt-12 pb-24 sm:px-6 lg:pt-24">
         <div className="max-w-3xl animate-fade-up text-primary-foreground">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
@@ -293,8 +298,8 @@ function About() {
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center">
         <div className="relative">
           <img
-            src={millInterior}
-            alt="Inside Vimala Flour Mill — grinding machines and grain sacks"
+            src={vfmShop}
+            alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
             loading="lazy"
             width={1200}
             height={900}
@@ -479,7 +484,9 @@ function Process() {
 /* ---------------- Gallery ---------------- */
 function Gallery() {
   const images = [
-    { src: millInterior, alt: "Shop front view" },
+    { src: vfmShop, alt: "Vimala Flour Mill shop exterior" },
+    { src: vfmInterior, alt: "Inside our flour mill with Vimal grinding machines" },
+    { src: millInterior, alt: "Mill interior view" },
     { src: machineImg, alt: "Flour mill machines" },
     { src: wetImg, alt: "Wet grinding process" },
     { src: heroImg, alt: "Dry grinding process" },
