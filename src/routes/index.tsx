@@ -24,6 +24,7 @@ import sacksImg from "@/assets/sacks.jpg";
 import machineImg from "@/assets/machine.jpg";
 import vfmShopAsset from "@/assets/vfm-shop.png.asset.json";
 import vfmInteriorAsset from "@/assets/vfm-interior.png.asset.json";
+import vfmLogo from "@/assets/vfm-logo.png";
 const vfmShop = vfmShopAsset.url;
 const vfmInterior = vfmInteriorAsset.url;
 
@@ -130,15 +131,29 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
-            <Wheat className="h-5 w-5" />
-          </span>
+        <a href="#top" className="flex items-center gap-3">
+          <img
+            src={vfmLogo}
+            alt="Vimala Flour Mill logo"
+            width={48}
+            height={48}
+            className="h-12 w-12 rounded-full shadow-[var(--shadow-soft)] ring-2 ring-white/70"
+          />
           <span className="flex flex-col leading-tight">
-            <span className="font-[Playfair_Display] text-lg font-bold text-foreground">
+            <span
+              className={`font-[Playfair_Display] text-xl font-extrabold tracking-tight sm:text-2xl ${
+                scrolled
+                  ? "text-primary"
+                  : "text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.6)]"
+              }`}
+            >
               Vimala Flour Mill
             </span>
-            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            <span
+              className={`text-[11px] font-semibold uppercase tracking-widest ${
+                scrolled ? "text-muted-foreground" : "text-white/90 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
+              }`}
+            >
               Bangalore · Since 2014
             </span>
           </span>
