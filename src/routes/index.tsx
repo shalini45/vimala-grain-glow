@@ -255,7 +255,7 @@ function Header() {
               </a>
             ))}
             <a href={`tel:${PHONE}`} className="mt-5">
-              <Button className="glass-cta w-full rounded-full bg-transparent font-semibold hover:bg-transparent">
+              <Button className="glass-cta w-full rounded-full bg-transparent text-[oklch(0.2_0.04_55)] font-semibold hover:bg-transparent">
                 <Phone className="mr-2 h-4 w-4" /> Call Now
               </Button>
             </a>
