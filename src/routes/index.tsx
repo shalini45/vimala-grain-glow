@@ -177,22 +177,24 @@ function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all ${
-        scrolled ? "bg-background/90 shadow-sm backdrop-blur" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "border-b border-border/60 bg-background/70 shadow-[var(--shadow-premium)] backdrop-blur-xl"
+          : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+        <a href="#top" className="flex min-w-0 items-center gap-3">
           <img
             src={vfmLogo}
             alt="Vimala Flour Mill logo"
-            width={48}
-            height={48}
-            className="h-12 w-12 rounded-full shadow-[var(--shadow-soft)] ring-2 ring-white/70"
+            width={64}
+            height={64}
+            className="h-12 w-12 shrink-0 rounded-full bg-white/90 object-contain p-0.5 shadow-[var(--shadow-soft)] ring-1 ring-white/70 transition-transform duration-500 hover:scale-105 sm:h-14 sm:w-14"
           />
-          <span className="flex flex-col leading-tight">
+          <span className="flex min-w-0 flex-col leading-tight">
             <span
-              className={`font-[Playfair_Display] text-xl font-extrabold tracking-tight sm:text-2xl ${
+              className={`truncate font-[Playfair_Display] text-xl font-extrabold tracking-tight transition-colors duration-500 sm:text-[1.7rem] ${
                 scrolled
                   ? "text-primary"
                   : "text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.6)]"
@@ -201,7 +203,7 @@ function Header() {
               Vimala Flour Mill
             </span>
             <span
-              className={`text-[11px] font-semibold uppercase tracking-widest ${
+              className={`text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-[11px] ${
                 scrolled ? "text-muted-foreground" : "text-white/90 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
               }`}
             >
@@ -209,24 +211,30 @@ function Header() {
             </span>
           </span>
         </a>
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+              className={`relative text-[15px] font-medium transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 ${
+                scrolled
+                  ? "text-foreground/75 hover:text-primary"
+                  : "text-white/90 [text-shadow:0_1px_4px_rgba(0,0,0,0.5)] hover:text-white"
+              }`}
             >
               {l.label}
             </a>
           ))}
           <a href={`tel:${PHONE}`}>
-            <Button className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)] hover:opacity-95">
+            <Button className="glass-cta rounded-full bg-transparent px-6 font-semibold hover:bg-transparent">
               <Phone className="mr-2 h-4 w-4" /> Call Now
             </Button>
           </a>
         </nav>
         <button
-          className="lg:hidden"
+          className={`rounded-full p-2 transition-colors lg:hidden ${
+            scrolled ? "text-foreground" : "text-white"
+          }`}
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -234,20 +242,20 @@ function Header() {
         </button>
       </div>
       {open && (
-        <div className="border-t bg-background lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col px-4 py-3">
+        <div className="border-t border-border/60 bg-background/95 backdrop-blur-xl lg:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col px-5 py-4">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="border-b py-3 text-sm font-medium"
+                className="border-b border-border/50 py-4 text-[15px] font-medium text-foreground/85 transition-colors hover:text-primary"
               >
                 {l.label}
               </a>
             ))}
-            <a href={`tel:${PHONE}`} className="mt-3">
-              <Button className="w-full rounded-full bg-[var(--gradient-warm)]">
+            <a href={`tel:${PHONE}`} className="mt-5">
+              <Button className="glass-cta w-full rounded-full bg-transparent font-semibold hover:bg-transparent">
                 <Phone className="mr-2 h-4 w-4" /> Call Now
               </Button>
             </a>
