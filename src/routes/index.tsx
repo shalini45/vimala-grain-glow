@@ -300,12 +300,12 @@ function Hero() {
               </Button>
             </a>
             <a href={waLink("Hi Vimala Flour Mill, I'd like to enquire about your grinding services.")} target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border-0 px-7 text-base font-semibold text-white hover:text-white">
+              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border border-white/50 !bg-[oklch(0.24_0.04_55/0.45)] px-7 text-base font-semibold text-white hover:text-white">
                 <MessageCircle className="mr-2 h-5 w-5" /> WhatsApp Us
               </Button>
             </a>
             <a href={MAPS_URL} target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border-0 px-7 text-base font-semibold text-white hover:text-white">
+              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border border-white/50 !bg-[oklch(0.24_0.04_55/0.45)] px-7 text-base font-semibold text-white hover:text-white">
                 <MapPin className="mr-2 h-5 w-5" /> Get Directions
               </Button>
             </a>
