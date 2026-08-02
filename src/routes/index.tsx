@@ -269,7 +269,7 @@ function Header() {
 /* ---------------- Hero ---------------- */
 function Hero() {
   return (
-    <section id="top" className="relative isolate min-h-[100svh] overflow-hidden pt-20">
+    <section id="top" className="relative isolate flex min-h-[92svh] items-center overflow-hidden pt-24">
       <img
         src={heroImg}
         alt="Fresh wheat grains and flour at Vimala Flour Mill Bangalore"
@@ -280,7 +280,7 @@ function Hero() {
       <div className="absolute inset-0 -z-10 bg-[var(--gradient-hero)]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
       <div className="grain-overlay absolute inset-0 -z-10" />
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-16 pb-28 sm:px-8 lg:pt-28">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pt-16 pb-32 sm:px-8 lg:pt-24">
         <div className="max-w-3xl animate-fade-up text-primary-foreground">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" /> Trusted in Bangalore for 10+ years
