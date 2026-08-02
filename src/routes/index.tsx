@@ -754,12 +754,12 @@ function Location() {
 function Info({ icon: Icon, title, children }: { icon: typeof MapPin; title: string; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--gradient-warm)] text-primary-foreground">
-        <Icon className="h-5 w-5" />
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+        <Icon className="h-5 w-5" strokeWidth={1.75} />
       </span>
       <div className="min-w-0">
-        <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{title}</div>
-        <div className="mt-1 text-sm text-foreground/90">{children}</div>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{title}</div>
+        <div className="mt-1.5 text-[16px] leading-relaxed text-foreground/90">{children}</div>
       </div>
     </div>
   );
@@ -783,15 +783,15 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+    <section id="contact" className="py-28 sm:py-36">
+      <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <SectionHeader
           eyebrow="Contact"
           title="Send us an enquiry"
           subtitle="Fill the form and we'll get back on WhatsApp — usually within minutes during business hours."
         />
-        <form onSubmit={send} className="mt-12 grid gap-5 rounded-3xl border bg-card p-6 shadow-[var(--shadow-soft)] sm:p-10">
-          <div className="grid gap-5 sm:grid-cols-2">
+        <form onSubmit={send} className="card-premium mt-16 grid gap-7 p-7 hover:translate-y-0 sm:p-12">
+          <div className="grid gap-7 sm:grid-cols-2">
             <Field label="Name *">
               <Input value={form.name} onChange={upd("name")} placeholder="Your full name" maxLength={80} required />
             </Field>
@@ -805,11 +805,11 @@ function Contact() {
           <Field label="Message">
             <Textarea value={form.message} onChange={upd("message")} placeholder="Tell us what you need, quantity, delivery area…" rows={5} maxLength={1000} />
           </Field>
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-3">
             <p className="text-xs text-muted-foreground">
               By submitting, your enquiry will open in WhatsApp at +91 94809 75441.
             </p>
-            <Button type="submit" size="lg" className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)]">
+            <Button type="submit" size="lg" className="glass-cta rounded-full bg-transparent px-8 font-semibold hover:bg-transparent">
               <Send className="mr-2 h-4 w-4" /> Send Enquiry
             </Button>
           </div>
@@ -822,7 +822,7 @@ function Contact() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</span>
+      <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
       {children}
     </label>
   );
@@ -832,15 +832,20 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 function Footer() {
   return (
     <footer className="bg-[oklch(0.24_0.04_55)] text-primary-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--gradient-warm)]">
-              <Wheat className="h-5 w-5" />
-            </span>
-            <span className="font-[Playfair_Display] text-lg font-bold">Vimala Flour Mill</span>
+          <div className="flex items-center gap-3">
+            <img
+              src={vfmLogo}
+              alt="Vimala Flour Mill logo"
+              width={56}
+              height={56}
+              loading="lazy"
+              className="h-12 w-12 shrink-0 rounded-full bg-white/90 object-contain p-0.5"
+            />
+            <span className="font-[Playfair_Display] text-xl font-bold">Vimala Flour Mill</span>
           </div>
-          <p className="mt-4 text-sm text-white/70">
+          <p className="mt-5 text-[15px] leading-relaxed text-white/70">
             Fresh, hygienic wet & dry grinding in Bangalore. Serving our neighbourhood
             for over a decade.
           </p>
