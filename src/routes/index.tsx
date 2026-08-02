@@ -686,14 +686,14 @@ function Faq() {
     { q: "Do you offer both wet and dry grinding?", a: "Yes — wet grinding for batters/pastes and dry grinding for flours and masalas, all under one roof." },
   ];
   return (
-    <section className="py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+    <section className="py-28 sm:py-36">
+      <div className="mx-auto max-w-3xl px-5 sm:px-8">
         <SectionHeader eyebrow="FAQ" title="Frequently asked questions" />
-        <Accordion type="single" collapsible className="mt-10">
+        <Accordion type="single" collapsible className="mt-14">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="rounded-xl border-b">
-              <AccordionTrigger className="py-4 text-left text-base font-semibold hover:no-underline">{f.q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+            <AccordionItem key={i} value={`item-${i}`} className="border-b border-border/60">
+              <AccordionTrigger className="py-6 text-left text-[17px] font-semibold transition-colors hover:text-primary hover:no-underline">{f.q}</AccordionTrigger>
+              <AccordionContent className="pb-6 text-[16px] leading-[1.8] text-muted-foreground">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
@@ -705,11 +705,12 @@ function Faq() {
 /* ---------------- Location ---------------- */
 function Location() {
   return (
-    <section id="location" className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="location" className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Visit Us" title="Come to our mill in N.S. Layout" />
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div className="space-y-5 rounded-3xl border bg-card p-8 shadow-[var(--shadow-soft)]">
+        <div className="mt-20 grid gap-10 lg:grid-cols-2">
+          <Reveal className="h-full">
+          <div className="card-premium h-full space-y-7 p-10">
             <Info icon={MapPin} title="Address">
               {ADDRESS}
             </Info>
@@ -725,12 +726,14 @@ function Location() {
               9:00 AM – 10:00 PM (All Days)
             </Info>
             <a href={MAPS_URL} target="_blank" rel="noreferrer" className="inline-block pt-2">
-              <Button className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)]">
+              <Button className="glass-cta rounded-full bg-transparent px-7 font-semibold hover:bg-transparent">
                 <MapPin className="mr-2 h-4 w-4" /> Get Directions
               </Button>
             </a>
           </div>
-          <div className="overflow-hidden rounded-3xl border shadow-[var(--shadow-soft)]">
+          </Reveal>
+          <Reveal delay={120}>
+          <div className="overflow-hidden rounded-[18px] border border-border/60 shadow-[var(--shadow-premium)]">
             <iframe
               title="Vimala Flour Mill on Google Maps"
               src={`https://www.google.com/maps?q=${encodeURIComponent("Vimala Flour Mill, " + ADDRESS)}&output=embed`}
@@ -741,6 +744,7 @@ function Location() {
               className="h-full min-h-[360px] w-full border-0"
             />
           </div>
+          </Reveal>
         </div>
       </div>
     </section>
