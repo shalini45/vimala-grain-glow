@@ -371,47 +371,47 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; title: s
 /* ---------------- About ---------------- */
 function About() {
   return (
-    <section id="about" className="py-20 sm:py-28">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center">
-        <div className="relative">
+    <section id="about" className="py-28 sm:py-36">
+      <div className="mx-auto grid max-w-7xl gap-16 px-5 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-20">
+        <Reveal className="relative">
           <img
             src={vfmShop}
             alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
             loading="lazy"
             width={1200}
             height={900}
-            className="rounded-3xl object-cover shadow-[var(--shadow-warm)]"
+            className="rounded-[18px] object-cover shadow-[var(--shadow-lift)]"
           />
-          <div className="absolute -bottom-6 -right-4 hidden rounded-2xl bg-[var(--gradient-warm)] px-6 py-4 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
+          <div className="absolute -bottom-7 -right-4 hidden rounded-[18px] bg-[var(--gradient-warm)] px-7 py-5 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
             <div className="text-3xl font-bold">10+</div>
-            <div className="text-xs uppercase tracking-widest">Years Serving Bangalore</div>
+            <div className="text-[11px] uppercase tracking-[0.2em]">Years Serving Bangalore</div>
           </div>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={120}>
           <SectionHeader eyebrow="About Us" title="A trusted neighbourhood flour mill" />
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+          <p className="mt-8 text-[17px] leading-[1.85] text-muted-foreground">
             Vimala Flour Mill is a trusted neighbourhood flour mill serving families and
             businesses across Bangalore. We specialise in both <strong className="text-foreground">wet and dry grinding</strong>
             {" "}services using careful processes and quality equipment.
           </p>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-[17px] leading-[1.85] text-muted-foreground">
             From wheat and ragi to idli batter and freshly ground masalas, we carefully
             process every customer's ingredients to ensure freshness, consistency, and
             satisfaction — backed by free home delivery in the locality.
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
             {[
               { n: "10+", l: "Years" },
               { n: "5K+", l: "Happy Customers" },
               { n: "20+", l: "Items Ground" },
             ].map((s) => (
-              <div key={s.l} className="rounded-2xl border bg-card p-4 text-center shadow-[var(--shadow-soft)]">
-                <div className="text-2xl font-bold text-primary">{s.n}</div>
-                <div className="text-xs text-muted-foreground">{s.l}</div>
+              <div key={s.l} className="card-premium p-6 text-center">
+                <div className="font-[Playfair_Display] text-3xl font-bold text-primary">{s.n}</div>
+                <div className="mt-1 text-xs uppercase tracking-[0.14em] text-muted-foreground">{s.l}</div>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
