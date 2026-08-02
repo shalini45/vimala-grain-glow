@@ -514,18 +514,20 @@ function WhyUs() {
     { icon: CheckCircle2, t: "Accurate to Your Spec", d: "Ground exactly as per your requirement — coarse or fine." },
   ];
   return (
-    <section id="why" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="why" className="py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Why Choose Us" title="The difference is in the grind" />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {points.map((p) => (
-            <div key={p.t} className="group rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-warm)]">
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-[var(--gradient-warm)] text-primary-foreground">
-                <p.icon className="h-5 w-5" />
+        <div className="mt-20 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+          {points.map((p, i) => (
+            <Reveal key={p.t} className="h-full" delay={(i % 4) * 90}>
+            <div className="card-premium h-full p-8">
+              <span className="grid h-14 w-14 place-items-center rounded-[18px] bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+                <p.icon className="h-6 w-6" strokeWidth={1.75} />
               </span>
-              <h3 className="mt-4 text-base font-semibold">{p.t}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{p.d}</p>
+              <h3 className="mt-6 text-lg font-semibold">{p.t}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -542,19 +544,21 @@ function Process() {
     { n: "04", t: "Pickup or Home Delivery", d: "Pick up fresh from our shop or get it delivered to your doorstep." },
   ];
   return (
-    <section className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="How It Works" title="Simple, fresh, hassle-free" />
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s.n} className="relative rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)]">
-              <div className="text-4xl font-bold text-gradient-warm">{s.n}</div>
-              <h3 className="mt-3 text-lg font-semibold">{s.t}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
+            <Reveal key={s.n} className="h-full" delay={i * 90}>
+            <div className="card-premium relative h-full p-8">
+              <div className="font-[Playfair_Display] text-5xl font-bold text-gradient-warm">{s.n}</div>
+              <h3 className="mt-4 text-xl font-semibold">{s.t}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.d}</p>
               {i < steps.length - 1 && (
-                <ArrowRight className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-primary/50 lg:block" />
+                <ArrowRight className="absolute -right-4 top-1/2 hidden -translate-y-1/2 text-primary/40 lg:block" strokeWidth={1.75} />
               )}
             </div>
+            </Reveal>
           ))}
         </div>
       </div>
