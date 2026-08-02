@@ -226,7 +226,7 @@ function Header() {
             </a>
           ))}
           <a href={`tel:${PHONE}`}>
-            <Button className="glass-cta rounded-full bg-transparent px-6 font-semibold hover:bg-transparent">
+            <Button className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-6 font-semibold hover:bg-transparent">
               <Phone className="mr-2 h-4 w-4" /> Call Now
             </Button>
           </a>
@@ -295,7 +295,7 @@ function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <a href={`tel:${PHONE}`}>
-              <Button size="lg" className="glass-cta rounded-full bg-transparent px-7 text-base font-semibold hover:bg-transparent">
+              <Button size="lg" className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-7 text-base font-semibold hover:bg-transparent">
                 <Phone className="mr-2 h-5 w-5" /> Call Now
               </Button>
             </a>
@@ -491,7 +491,7 @@ function Services() {
 
         <div className="mt-14 text-center">
           <a href={waLink("Hi, I'd like to know more about your grinding services.")} target="_blank" rel="noreferrer">
-            <Button size="lg" className="glass-cta rounded-full bg-transparent px-8 text-base font-semibold hover:bg-transparent">
+            <Button size="lg" className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-8 text-base font-semibold hover:bg-transparent">
               <MessageCircle className="mr-2 h-5 w-5" /> Enquire on WhatsApp
             </Button>
           </a>
@@ -726,7 +726,7 @@ function Location() {
               9:00 AM – 10:00 PM (All Days)
             </Info>
             <a href={MAPS_URL} target="_blank" rel="noreferrer" className="inline-block pt-2">
-              <Button className="glass-cta rounded-full bg-transparent px-7 font-semibold hover:bg-transparent">
+              <Button className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-7 font-semibold hover:bg-transparent">
                 <MapPin className="mr-2 h-4 w-4" /> Get Directions
               </Button>
             </a>
@@ -809,7 +809,7 @@ function Contact() {
             <p className="text-xs text-muted-foreground">
               By submitting, your enquiry will open in WhatsApp at +91 94809 75441.
             </p>
-            <Button type="submit" size="lg" className="glass-cta rounded-full bg-transparent px-8 font-semibold hover:bg-transparent">
+            <Button type="submit" size="lg" className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-8 font-semibold hover:bg-transparent">
               <Send className="mr-2 h-4 w-4" /> Send Enquiry
             </Button>
           </div>
