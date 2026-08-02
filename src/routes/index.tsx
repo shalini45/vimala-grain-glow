@@ -435,59 +435,63 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="services" className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader
           eyebrow="Our Services"
           title="Wet & Dry Grinding — Done Right"
           subtitle="From everyday flours to special batters and masalas, we grind to your exact requirement."
         />
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+        <div className="mt-20 grid gap-10 lg:grid-cols-2">
           {/* Wet */}
-          <div className="overflow-hidden rounded-3xl border bg-card shadow-[var(--shadow-soft)]">
-            <div className="relative h-56">
-              <img src={wetImg} alt="Wet grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover" />
+          <Reveal className="h-full">
+          <div className="card-premium h-full overflow-hidden">
+            <div className="relative h-64 overflow-hidden">
+              <img src={wetImg} alt="Wet grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-4 left-5 text-primary-foreground">
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium uppercase tracking-wider backdrop-blur">Wet Grinding</span>
-                <h3 className="mt-2 text-2xl font-bold text-white">Smooth, fresh batters</h3>
+              <div className="absolute bottom-6 left-7 text-primary-foreground">
+                <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] backdrop-blur">Wet Grinding</span>
+                <h3 className="mt-3 text-[1.7rem] font-bold text-white">Smooth, fresh batters</h3>
               </div>
             </div>
-            <ul className="grid grid-cols-1 gap-2 p-6 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2">
               {wet.map((s) => (
-                <li key={s} className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                <li key={s} className="flex items-center gap-2.5 text-[15px]">
+                  <CheckCircle2 className="h-[18px] w-[18px] shrink-0 text-primary" strokeWidth={1.75} />
                   <span>{s}</span>
                 </li>
               ))}
             </ul>
           </div>
+          </Reveal>
 
           {/* Dry */}
-          <div className="overflow-hidden rounded-3xl border bg-card shadow-[var(--shadow-soft)]">
-            <div className="relative h-56">
-              <img src={ragiImg} alt="Dry grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover" />
+          <Reveal className="h-full" delay={120}>
+          <div className="card-premium h-full overflow-hidden">
+            <div className="relative h-64 overflow-hidden">
+              <img src={ragiImg} alt="Dry grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-4 left-5">
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white backdrop-blur">Dry Grinding</span>
-                <h3 className="mt-2 text-2xl font-bold text-white">Flours, masalas & mixes</h3>
+              <div className="absolute bottom-6 left-7">
+                <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">Dry Grinding</span>
+                <h3 className="mt-3 text-[1.7rem] font-bold text-white">Flours, masalas & mixes</h3>
               </div>
             </div>
-            <ul className="grid grid-cols-1 gap-2 p-6 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2">
               {dry.map((s) => (
-                <li key={s} className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                <li key={s} className="flex items-center gap-2.5 text-[15px]">
+                  <CheckCircle2 className="h-[18px] w-[18px] shrink-0 text-primary" strokeWidth={1.75} />
                   <span>{s}</span>
                 </li>
               ))}
             </ul>
           </div>
+          </Reveal>
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-14 text-center">
           <a href={waLink("Hi, I'd like to know more about your grinding services.")} target="_blank" rel="noreferrer">
-            <Button size="lg" className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)]">
+            <Button size="lg" className="glass-cta rounded-full bg-transparent px-8 text-base font-semibold hover:bg-transparent">
               <MessageCircle className="mr-2 h-5 w-5" /> Enquire on WhatsApp
             </Button>
           </a>
