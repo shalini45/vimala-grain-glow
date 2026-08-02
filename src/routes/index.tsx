@@ -582,15 +582,15 @@ function Gallery() {
   ];
   const [active, setActive] = useState<number | null>(null);
   return (
-    <section id="gallery" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="gallery" className="py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Gallery" title="A glimpse inside our mill" />
-        <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-20 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
           {images.map((img, i) => (
+            <Reveal key={i} delay={(i % 4) * 80}>
             <button
-              key={i}
               onClick={() => setActive(i)}
-              className="group relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="group relative w-full overflow-hidden rounded-[18px] shadow-[var(--shadow-premium)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[var(--shadow-lift)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <img
                 src={img.src}
@@ -600,8 +600,9 @@ function Gallery() {
                 height={600}
                 className="aspect-square h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/30" />
+              <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/25" />
             </button>
+            </Reveal>
           ))}
         </div>
         <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
@@ -610,7 +611,7 @@ function Gallery() {
               <img
                 src={images[active].src}
                 alt={images[active].alt}
-                className="h-auto w-full rounded-2xl"
+                className="h-auto w-full rounded-[18px]"
               />
             )}
           </DialogContent>
@@ -640,30 +641,32 @@ function Testimonials() {
     },
   ];
   return (
-    <section className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Testimonials" title="What our customers say" />
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {reviews.map((r) => (
-            <figure key={r.n} className="rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)]">
+        <div className="mt-20 grid gap-8 md:grid-cols-3">
+          {reviews.map((r, i) => (
+            <Reveal key={r.n} className="h-full" delay={i * 110}>
+            <figure className="card-premium h-full p-8">
               <div className="flex text-[oklch(0.78_0.14_75)]">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
+                  <Star key={i} className="h-[18px] w-[18px] fill-current" strokeWidth={1.5} />
                 ))}
               </div>
-              <blockquote className="mt-4 text-sm leading-relaxed text-foreground/80">
+              <blockquote className="mt-5 text-[16px] leading-[1.8] text-foreground/80">
                 "{r.r}"
               </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--gradient-warm)] font-bold text-primary-foreground">
+              <figcaption className="mt-7 flex items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--gradient-warm)] font-bold text-primary-foreground">
                   {r.n[0]}
                 </span>
-                <span>
-                  <div className="text-sm font-semibold">{r.n}</div>
+                <span className="min-w-0">
+                  <div className="text-[15px] font-semibold">{r.n}</div>
                   <div className="text-xs text-muted-foreground">{r.l}</div>
                 </span>
               </figcaption>
             </figure>
+            </Reveal>
           ))}
         </div>
       </div>
