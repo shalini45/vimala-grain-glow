@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
-  Phone, MessageCircle, MapPin, Clock, Wheat, Sparkles, Truck, ShieldCheck,
+  Phone, MessageCircle, MapPin, Clock, Sparkles, Truck, ShieldCheck,
   Award, Leaf, ChevronDown, Menu, X, Send, Star, ArrowRight, CheckCircle2,
 } from "lucide-react";
 import {
@@ -24,9 +24,10 @@ import sacksImg from "@/assets/sacks.jpg";
 import machineImg from "@/assets/machine.jpg";
 import vfmShopAsset from "@/assets/vfm-shop.png.asset.json";
 import vfmInteriorAsset from "@/assets/vfm-interior.png.asset.json";
-import vfmLogo from "@/assets/vfm-logo.png";
+import vfmLogoAsset from "@/assets/vfm-logo.png.asset.json";
 const vfmShop = vfmShopAsset.url;
 const vfmInterior = vfmInteriorAsset.url;
+const vfmLogo = vfmLogoAsset.url;
 
 const PHONE = "+919480975441";
 const WHATSAPP = "919480975441";
@@ -82,6 +83,53 @@ export const Route = createFileRoute("/")({
 const waLink = (msg: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 
+/* ---------------- Scroll reveal ---------------- */
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            el.classList.add("is-visible");
+            io.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${className}`}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="section-divider" />
+    </div>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -90,10 +138,13 @@ function Index() {
       <Hero />
       <TrustStrip />
       <About />
+      <Divider />
       <Services />
       <WhyUs />
+      <Divider />
       <Process />
       <Gallery />
+      <Divider />
       <Testimonials />
       <Faq />
       <Location />
@@ -126,22 +177,24 @@ function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all ${
-        scrolled ? "bg-background/90 shadow-sm backdrop-blur" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "border-b border-border/60 bg-background/70 shadow-[var(--shadow-premium)] backdrop-blur-xl"
+          : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+        <a href="#top" className="flex min-w-0 items-center gap-3">
           <img
             src={vfmLogo}
             alt="Vimala Flour Mill logo"
-            width={48}
-            height={48}
-            className="h-12 w-12 rounded-full shadow-[var(--shadow-soft)] ring-2 ring-white/70"
+            width={64}
+            height={64}
+            className="h-12 w-12 shrink-0 rounded-full bg-white/90 object-contain p-0.5 shadow-[var(--shadow-soft)] ring-1 ring-white/70 transition-transform duration-500 hover:scale-105 sm:h-14 sm:w-14"
           />
-          <span className="flex flex-col leading-tight">
+          <span className="flex min-w-0 flex-col leading-tight">
             <span
-              className={`font-[Playfair_Display] text-xl font-extrabold tracking-tight sm:text-2xl ${
+              className={`truncate font-[Playfair_Display] text-xl font-extrabold tracking-tight transition-colors duration-500 sm:text-[1.7rem] ${
                 scrolled
                   ? "text-primary"
                   : "text-white [text-shadow:0_2px_8px_rgba(0,0,0,0.6)]"
@@ -150,7 +203,7 @@ function Header() {
               Vimala Flour Mill
             </span>
             <span
-              className={`text-[11px] font-semibold uppercase tracking-widest ${
+              className={`text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-[11px] ${
                 scrolled ? "text-muted-foreground" : "text-white/90 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]"
               }`}
             >
@@ -158,24 +211,30 @@ function Header() {
             </span>
           </span>
         </a>
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+              className={`relative text-[15px] font-medium transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 ${
+                scrolled
+                  ? "text-foreground/75 hover:text-primary"
+                  : "text-white/90 [text-shadow:0_1px_4px_rgba(0,0,0,0.5)] hover:text-white"
+              }`}
             >
               {l.label}
             </a>
           ))}
           <a href={`tel:${PHONE}`}>
-            <Button className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)] hover:opacity-95">
+            <Button className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-6 font-semibold hover:bg-transparent">
               <Phone className="mr-2 h-4 w-4" /> Call Now
             </Button>
           </a>
         </nav>
         <button
-          className="lg:hidden"
+          className={`rounded-full p-2 transition-colors lg:hidden ${
+            scrolled ? "text-foreground" : "text-white"
+          }`}
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -183,20 +242,20 @@ function Header() {
         </button>
       </div>
       {open && (
-        <div className="border-t bg-background lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col px-4 py-3">
+        <div className="border-t border-border/60 bg-background/95 backdrop-blur-xl lg:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col px-5 py-4">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="border-b py-3 text-sm font-medium"
+                className="border-b border-border/50 py-4 text-[15px] font-medium text-foreground/85 transition-colors hover:text-primary"
               >
                 {l.label}
               </a>
             ))}
-            <a href={`tel:${PHONE}`} className="mt-3">
-              <Button className="w-full rounded-full bg-[var(--gradient-warm)]">
+            <a href={`tel:${PHONE}`} className="mt-5">
+              <Button className="glass-cta w-full rounded-full bg-transparent text-[oklch(0.2_0.04_55)] font-semibold hover:bg-transparent">
                 <Phone className="mr-2 h-4 w-4" /> Call Now
               </Button>
             </a>
@@ -210,7 +269,7 @@ function Header() {
 /* ---------------- Hero ---------------- */
 function Hero() {
   return (
-    <section id="top" className="relative isolate min-h-[100svh] overflow-hidden pt-20">
+    <section id="top" className="relative isolate flex min-h-[92svh] items-center overflow-hidden pt-24">
       <img
         src={heroImg}
         alt="Fresh wheat grains and flour at Vimala Flour Mill Bangalore"
@@ -220,45 +279,46 @@ function Hero() {
       />
       <div className="absolute inset-0 -z-10 bg-[var(--gradient-hero)]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 pt-12 pb-24 sm:px-6 lg:pt-24">
+      <div className="grain-overlay absolute inset-0 -z-10" />
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 pt-16 pb-32 sm:px-8 lg:pt-24">
         <div className="max-w-3xl animate-fade-up text-primary-foreground">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" /> Trusted in Bangalore for 10+ years
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight text-white drop-shadow sm:text-5xl lg:text-6xl">
+          <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.08] text-white drop-shadow sm:text-6xl lg:text-7xl">
             Fresh & Hygienic <span className="text-gradient-warm">Flour Grinding</span> Services in Bangalore
           </h1>
-          <p className="mt-5 max-w-2xl text-base text-white/90 sm:text-lg">
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl">
             For over 10 years, Vimala Flour Mill has been providing high-quality
             wet and dry grinding services with precision, hygiene, and customer satisfaction.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap gap-4">
             <a href={`tel:${PHONE}`}>
-              <Button size="lg" className="rounded-full bg-[var(--gradient-warm)] text-base shadow-[var(--shadow-warm)] hover:opacity-95">
+              <Button size="lg" className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-7 text-base font-semibold hover:bg-transparent">
                 <Phone className="mr-2 h-5 w-5" /> Call Now
               </Button>
             </a>
             <a href={waLink("Hi Vimala Flour Mill, I'd like to enquire about your grinding services.")} target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full border-white/40 bg-white/10 text-base text-white backdrop-blur hover:bg-white/20 hover:text-white">
+              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border border-white/50 !bg-[oklch(0.24_0.04_55/0.45)] px-7 text-base font-semibold text-white hover:text-white">
                 <MessageCircle className="mr-2 h-5 w-5" /> WhatsApp Us
               </Button>
             </a>
             <a href={MAPS_URL} target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full border-white/40 bg-white/10 text-base text-white backdrop-blur hover:bg-white/20 hover:text-white">
+              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border border-white/50 !bg-[oklch(0.24_0.04_55/0.45)] px-7 text-base font-semibold text-white hover:text-white">
                 <MapPin className="mr-2 h-5 w-5" /> Get Directions
               </Button>
             </a>
           </div>
 
-          <ul className="mt-8 grid grid-cols-2 gap-3 text-sm text-white/95 sm:grid-cols-4">
+          <ul className="mt-12 grid grid-cols-2 gap-3 text-sm text-white/95 sm:grid-cols-4">
             {[
               "10+ Years Experience",
               "Home Delivery Available",
               "Wet & Dry Grinding",
               "Quality Assured",
             ].map((t) => (
-              <li key={t} className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 backdrop-blur">
+              <li key={t} className="flex items-center gap-2 rounded-[18px] border border-white/15 bg-white/10 px-4 py-3 backdrop-blur">
                 <CheckCircle2 className="h-4 w-4 text-[oklch(0.85_0.15_85)]" />
                 <span className="font-medium">{t}</span>
               </li>
@@ -281,11 +341,11 @@ function TrustStrip() {
     { icon: Leaf, label: "Natural & Fresh" },
   ];
   return (
-    <div className="border-y bg-[color:var(--cream)]">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-6 sm:px-6 md:grid-cols-4">
+    <div className="border-y border-border/60 bg-[color:var(--cream)]">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-5 py-9 sm:px-8 md:grid-cols-4">
         {items.map((it) => (
-          <div key={it.label} className="flex items-center justify-center gap-3 text-sm font-medium text-foreground/80">
-            <it.icon className="h-5 w-5 text-primary" />
+          <div key={it.label} className="flex items-center justify-center gap-3 text-[15px] font-medium tracking-wide text-foreground/80">
+            <it.icon className="h-5 w-5 shrink-0 text-primary" strokeWidth={1.75} />
             {it.label}
           </div>
         ))}
@@ -297,59 +357,61 @@ function TrustStrip() {
 /* ---------------- Section helpers ---------------- */
 function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
-      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</span>
-      <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">{title}</h2>
-      {subtitle && <p className="mt-3 text-muted-foreground">{subtitle}</p>}
-      <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-[var(--gradient-warm)]" />
-    </div>
+    <Reveal>
+      <div className="mx-auto max-w-2xl text-center">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">{eyebrow}</span>
+        <h2 className="mt-4 text-[2.1rem] font-bold text-foreground sm:text-[2.75rem]">{title}</h2>
+        {subtitle && <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{subtitle}</p>}
+        <div className="mx-auto mt-7 h-[3px] w-20 rounded-full bg-[var(--gradient-warm)]" />
+      </div>
+    </Reveal>
   );
 }
 
 /* ---------------- About ---------------- */
 function About() {
   return (
-    <section id="about" className="py-20 sm:py-28">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center">
-        <div className="relative">
+    <section id="about" className="py-28 sm:py-36">
+      <div className="mx-auto grid max-w-7xl gap-16 px-5 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-20">
+        <Reveal className="relative">
           <img
             src={vfmShop}
             alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
             loading="lazy"
             width={1200}
             height={900}
-            className="rounded-3xl object-cover shadow-[var(--shadow-warm)]"
+            className="rounded-[18px] object-cover shadow-[var(--shadow-lift)]"
           />
-          <div className="absolute -bottom-6 -right-4 hidden rounded-2xl bg-[var(--gradient-warm)] px-6 py-4 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
+          <div className="absolute -bottom-7 -right-4 hidden rounded-[18px] bg-[var(--gradient-warm)] px-7 py-5 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
             <div className="text-3xl font-bold">10+</div>
-            <div className="text-xs uppercase tracking-widest">Years Serving Bangalore</div>
+            <div className="text-[11px] uppercase tracking-[0.2em]">Years Serving Bangalore</div>
           </div>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={120}>
           <SectionHeader eyebrow="About Us" title="A trusted neighbourhood flour mill" />
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+          <p className="mt-8 text-[17px] leading-[1.85] text-muted-foreground">
             Vimala Flour Mill is a trusted neighbourhood flour mill serving families and
             businesses across Bangalore. We specialise in both <strong className="text-foreground">wet and dry grinding</strong>
             {" "}services using careful processes and quality equipment.
           </p>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-[17px] leading-[1.85] text-muted-foreground">
             From wheat and ragi to idli batter and freshly ground masalas, we carefully
             process every customer's ingredients to ensure freshness, consistency, and
             satisfaction — backed by free home delivery in the locality.
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
             {[
               { n: "10+", l: "Years" },
               { n: "5K+", l: "Happy Customers" },
               { n: "20+", l: "Items Ground" },
             ].map((s) => (
-              <div key={s.l} className="rounded-2xl border bg-card p-4 text-center shadow-[var(--shadow-soft)]">
-                <div className="text-2xl font-bold text-primary">{s.n}</div>
-                <div className="text-xs text-muted-foreground">{s.l}</div>
+              <div key={s.l} className="card-premium p-6 text-center">
+                <div className="font-[Playfair_Display] text-3xl font-bold text-primary">{s.n}</div>
+                <div className="mt-1 text-xs uppercase tracking-[0.14em] text-muted-foreground">{s.l}</div>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -373,59 +435,63 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="services" className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader
           eyebrow="Our Services"
           title="Wet & Dry Grinding — Done Right"
           subtitle="From everyday flours to special batters and masalas, we grind to your exact requirement."
         />
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+        <div className="mt-20 grid gap-10 lg:grid-cols-2">
           {/* Wet */}
-          <div className="overflow-hidden rounded-3xl border bg-card shadow-[var(--shadow-soft)]">
-            <div className="relative h-56">
-              <img src={wetImg} alt="Wet grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover" />
+          <Reveal className="h-full">
+          <div className="card-premium h-full overflow-hidden">
+            <div className="relative h-64 overflow-hidden">
+              <img src={wetImg} alt="Wet grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-4 left-5 text-primary-foreground">
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium uppercase tracking-wider backdrop-blur">Wet Grinding</span>
-                <h3 className="mt-2 text-2xl font-bold text-white">Smooth, fresh batters</h3>
+              <div className="absolute bottom-6 left-7 text-primary-foreground">
+                <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] backdrop-blur">Wet Grinding</span>
+                <h3 className="mt-3 text-[1.7rem] font-bold text-white">Smooth, fresh batters</h3>
               </div>
             </div>
-            <ul className="grid grid-cols-1 gap-2 p-6 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2">
               {wet.map((s) => (
-                <li key={s} className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                <li key={s} className="flex items-center gap-2.5 text-[15px]">
+                  <CheckCircle2 className="h-[18px] w-[18px] shrink-0 text-primary" strokeWidth={1.75} />
                   <span>{s}</span>
                 </li>
               ))}
             </ul>
           </div>
+          </Reveal>
 
           {/* Dry */}
-          <div className="overflow-hidden rounded-3xl border bg-card shadow-[var(--shadow-soft)]">
-            <div className="relative h-56">
-              <img src={ragiImg} alt="Dry grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover" />
+          <Reveal className="h-full" delay={120}>
+          <div className="card-premium h-full overflow-hidden">
+            <div className="relative h-64 overflow-hidden">
+              <img src={ragiImg} alt="Dry grinding services" loading="lazy" width={900} height={900} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-4 left-5">
-                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white backdrop-blur">Dry Grinding</span>
-                <h3 className="mt-2 text-2xl font-bold text-white">Flours, masalas & mixes</h3>
+              <div className="absolute bottom-6 left-7">
+                <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">Dry Grinding</span>
+                <h3 className="mt-3 text-[1.7rem] font-bold text-white">Flours, masalas & mixes</h3>
               </div>
             </div>
-            <ul className="grid grid-cols-1 gap-2 p-6 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 p-8 sm:grid-cols-2">
               {dry.map((s) => (
-                <li key={s} className="flex items-center gap-2 text-sm">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                <li key={s} className="flex items-center gap-2.5 text-[15px]">
+                  <CheckCircle2 className="h-[18px] w-[18px] shrink-0 text-primary" strokeWidth={1.75} />
                   <span>{s}</span>
                 </li>
               ))}
             </ul>
           </div>
+          </Reveal>
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-14 text-center">
           <a href={waLink("Hi, I'd like to know more about your grinding services.")} target="_blank" rel="noreferrer">
-            <Button size="lg" className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)]">
+            <Button size="lg" className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-8 text-base font-semibold hover:bg-transparent">
               <MessageCircle className="mr-2 h-5 w-5" /> Enquire on WhatsApp
             </Button>
           </a>
@@ -448,18 +514,20 @@ function WhyUs() {
     { icon: CheckCircle2, t: "Accurate to Your Spec", d: "Ground exactly as per your requirement — coarse or fine." },
   ];
   return (
-    <section id="why" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="why" className="py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Why Choose Us" title="The difference is in the grind" />
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {points.map((p) => (
-            <div key={p.t} className="group rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-warm)]">
-              <span className="grid h-12 w-12 place-items-center rounded-xl bg-[var(--gradient-warm)] text-primary-foreground">
-                <p.icon className="h-5 w-5" />
+        <div className="mt-20 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+          {points.map((p, i) => (
+            <Reveal key={p.t} className="h-full" delay={(i % 4) * 90}>
+            <div className="card-premium h-full p-8">
+              <span className="grid h-14 w-14 place-items-center rounded-[18px] bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+                <p.icon className="h-6 w-6" strokeWidth={1.75} />
               </span>
-              <h3 className="mt-4 text-base font-semibold">{p.t}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{p.d}</p>
+              <h3 className="mt-6 text-lg font-semibold">{p.t}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{p.d}</p>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -476,19 +544,21 @@ function Process() {
     { n: "04", t: "Pickup or Home Delivery", d: "Pick up fresh from our shop or get it delivered to your doorstep." },
   ];
   return (
-    <section className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="How It Works" title="Simple, fresh, hassle-free" />
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s.n} className="relative rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)]">
-              <div className="text-4xl font-bold text-gradient-warm">{s.n}</div>
-              <h3 className="mt-3 text-lg font-semibold">{s.t}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
+            <Reveal key={s.n} className="h-full" delay={i * 90}>
+            <div className="card-premium relative h-full p-8">
+              <div className="font-[Playfair_Display] text-5xl font-bold text-gradient-warm">{s.n}</div>
+              <h3 className="mt-4 text-xl font-semibold">{s.t}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.d}</p>
               {i < steps.length - 1 && (
-                <ArrowRight className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-primary/50 lg:block" />
+                <ArrowRight className="absolute -right-4 top-1/2 hidden -translate-y-1/2 text-primary/40 lg:block" strokeWidth={1.75} />
               )}
             </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -512,15 +582,15 @@ function Gallery() {
   ];
   const [active, setActive] = useState<number | null>(null);
   return (
-    <section id="gallery" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="gallery" className="py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Gallery" title="A glimpse inside our mill" />
-        <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-20 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
           {images.map((img, i) => (
+            <Reveal key={i} delay={(i % 4) * 80}>
             <button
-              key={i}
               onClick={() => setActive(i)}
-              className="group relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="group relative w-full overflow-hidden rounded-[18px] shadow-[var(--shadow-premium)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[var(--shadow-lift)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <img
                 src={img.src}
@@ -530,8 +600,9 @@ function Gallery() {
                 height={600}
                 className="aspect-square h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/30" />
+              <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/25" />
             </button>
+            </Reveal>
           ))}
         </div>
         <Dialog open={active !== null} onOpenChange={(o) => !o && setActive(null)}>
@@ -540,7 +611,7 @@ function Gallery() {
               <img
                 src={images[active].src}
                 alt={images[active].alt}
-                className="h-auto w-full rounded-2xl"
+                className="h-auto w-full rounded-[18px]"
               />
             )}
           </DialogContent>
@@ -570,30 +641,32 @@ function Testimonials() {
     },
   ];
   return (
-    <section className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Testimonials" title="What our customers say" />
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {reviews.map((r) => (
-            <figure key={r.n} className="rounded-2xl border bg-card p-6 shadow-[var(--shadow-soft)]">
+        <div className="mt-20 grid gap-8 md:grid-cols-3">
+          {reviews.map((r, i) => (
+            <Reveal key={r.n} className="h-full" delay={i * 110}>
+            <figure className="card-premium h-full p-8">
               <div className="flex text-[oklch(0.78_0.14_75)]">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
+                  <Star key={i} className="h-[18px] w-[18px] fill-current" strokeWidth={1.5} />
                 ))}
               </div>
-              <blockquote className="mt-4 text-sm leading-relaxed text-foreground/80">
+              <blockquote className="mt-5 text-[16px] leading-[1.8] text-foreground/80">
                 "{r.r}"
               </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--gradient-warm)] font-bold text-primary-foreground">
+              <figcaption className="mt-7 flex items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--gradient-warm)] font-bold text-primary-foreground">
                   {r.n[0]}
                 </span>
-                <span>
-                  <div className="text-sm font-semibold">{r.n}</div>
+                <span className="min-w-0">
+                  <div className="text-[15px] font-semibold">{r.n}</div>
                   <div className="text-xs text-muted-foreground">{r.l}</div>
                 </span>
               </figcaption>
             </figure>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -613,14 +686,14 @@ function Faq() {
     { q: "Do you offer both wet and dry grinding?", a: "Yes — wet grinding for batters/pastes and dry grinding for flours and masalas, all under one roof." },
   ];
   return (
-    <section className="py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+    <section className="py-28 sm:py-36">
+      <div className="mx-auto max-w-3xl px-5 sm:px-8">
         <SectionHeader eyebrow="FAQ" title="Frequently asked questions" />
-        <Accordion type="single" collapsible className="mt-10">
+        <Accordion type="single" collapsible className="mt-14">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`item-${i}`} className="rounded-xl border-b">
-              <AccordionTrigger className="py-4 text-left text-base font-semibold hover:no-underline">{f.q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+            <AccordionItem key={i} value={`item-${i}`} className="border-b border-border/60">
+              <AccordionTrigger className="py-6 text-left text-[17px] font-semibold transition-colors hover:text-primary hover:no-underline">{f.q}</AccordionTrigger>
+              <AccordionContent className="pb-6 text-[16px] leading-[1.8] text-muted-foreground">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
@@ -632,11 +705,12 @@ function Faq() {
 /* ---------------- Location ---------------- */
 function Location() {
   return (
-    <section id="location" className="bg-[color:var(--cream)] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section id="location" className="bg-[color:var(--cream)] py-28 sm:py-36">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Visit Us" title="Come to our mill in N.S. Layout" />
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div className="space-y-5 rounded-3xl border bg-card p-8 shadow-[var(--shadow-soft)]">
+        <div className="mt-20 grid gap-10 lg:grid-cols-2">
+          <Reveal className="h-full">
+          <div className="card-premium h-full space-y-7 p-10">
             <Info icon={MapPin} title="Address">
               {ADDRESS}
             </Info>
@@ -652,12 +726,14 @@ function Location() {
               9:00 AM – 10:00 PM (All Days)
             </Info>
             <a href={MAPS_URL} target="_blank" rel="noreferrer" className="inline-block pt-2">
-              <Button className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)]">
+              <Button className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-7 font-semibold hover:bg-transparent">
                 <MapPin className="mr-2 h-4 w-4" /> Get Directions
               </Button>
             </a>
           </div>
-          <div className="overflow-hidden rounded-3xl border shadow-[var(--shadow-soft)]">
+          </Reveal>
+          <Reveal delay={120}>
+          <div className="overflow-hidden rounded-[18px] border border-border/60 shadow-[var(--shadow-premium)]">
             <iframe
               title="Vimala Flour Mill on Google Maps"
               src={`https://www.google.com/maps?q=${encodeURIComponent("Vimala Flour Mill, " + ADDRESS)}&output=embed`}
@@ -668,6 +744,7 @@ function Location() {
               className="h-full min-h-[360px] w-full border-0"
             />
           </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -677,12 +754,12 @@ function Location() {
 function Info({ icon: Icon, title, children }: { icon: typeof MapPin; title: string; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--gradient-warm)] text-primary-foreground">
-        <Icon className="h-5 w-5" />
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+        <Icon className="h-5 w-5" strokeWidth={1.75} />
       </span>
       <div className="min-w-0">
-        <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{title}</div>
-        <div className="mt-1 text-sm text-foreground/90">{children}</div>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{title}</div>
+        <div className="mt-1.5 text-[16px] leading-relaxed text-foreground/90">{children}</div>
       </div>
     </div>
   );
@@ -706,15 +783,15 @@ function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+    <section id="contact" className="py-28 sm:py-36">
+      <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <SectionHeader
           eyebrow="Contact"
           title="Send us an enquiry"
           subtitle="Fill the form and we'll get back on WhatsApp — usually within minutes during business hours."
         />
-        <form onSubmit={send} className="mt-12 grid gap-5 rounded-3xl border bg-card p-6 shadow-[var(--shadow-soft)] sm:p-10">
-          <div className="grid gap-5 sm:grid-cols-2">
+        <form onSubmit={send} className="card-premium mt-16 grid gap-7 p-7 hover:translate-y-0 sm:p-12">
+          <div className="grid gap-7 sm:grid-cols-2">
             <Field label="Name *">
               <Input value={form.name} onChange={upd("name")} placeholder="Your full name" maxLength={80} required />
             </Field>
@@ -728,11 +805,11 @@ function Contact() {
           <Field label="Message">
             <Textarea value={form.message} onChange={upd("message")} placeholder="Tell us what you need, quantity, delivery area…" rows={5} maxLength={1000} />
           </Field>
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-3">
             <p className="text-xs text-muted-foreground">
               By submitting, your enquiry will open in WhatsApp at +91 94809 75441.
             </p>
-            <Button type="submit" size="lg" className="rounded-full bg-[var(--gradient-warm)] shadow-[var(--shadow-soft)]">
+            <Button type="submit" size="lg" className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-8 font-semibold hover:bg-transparent">
               <Send className="mr-2 h-4 w-4" /> Send Enquiry
             </Button>
           </div>
@@ -745,7 +822,7 @@ function Contact() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</span>
+      <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
       {children}
     </label>
   );
@@ -755,15 +832,20 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 function Footer() {
   return (
     <footer className="bg-[oklch(0.24_0.04_55)] text-primary-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--gradient-warm)]">
-              <Wheat className="h-5 w-5" />
-            </span>
-            <span className="font-[Playfair_Display] text-lg font-bold">Vimala Flour Mill</span>
+          <div className="flex items-center gap-3">
+            <img
+              src={vfmLogo}
+              alt="Vimala Flour Mill logo"
+              width={56}
+              height={56}
+              loading="lazy"
+              className="h-12 w-12 shrink-0 rounded-full bg-white/90 object-contain p-0.5"
+            />
+            <span className="font-[Playfair_Display] text-xl font-bold">Vimala Flour Mill</span>
           </div>
-          <p className="mt-4 text-sm text-white/70">
+          <p className="mt-5 text-[15px] leading-relaxed text-white/70">
             Fresh, hygienic wet & dry grinding in Bangalore. Serving our neighbourhood
             for over a decade.
           </p>
