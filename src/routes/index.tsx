@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Phone, MessageCircle, MapPin, Clock, Wheat, Sparkles, Truck, ShieldCheck,
   Award, Leaf, ChevronDown, Menu, X, Send, Star, ArrowRight, CheckCircle2,
@@ -24,9 +24,10 @@ import sacksImg from "@/assets/sacks.jpg";
 import machineImg from "@/assets/machine.jpg";
 import vfmShopAsset from "@/assets/vfm-shop.png.asset.json";
 import vfmInteriorAsset from "@/assets/vfm-interior.png.asset.json";
-import vfmLogo from "@/assets/vfm-logo.png";
+import vfmLogoAsset from "@/assets/vfm-logo.png.asset.json";
 const vfmShop = vfmShopAsset.url;
 const vfmInterior = vfmInteriorAsset.url;
+const vfmLogo = vfmLogoAsset.url;
 
 const PHONE = "+919480975441";
 const WHATSAPP = "919480975441";
@@ -82,6 +83,53 @@ export const Route = createFileRoute("/")({
 const waLink = (msg: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 
+/* ---------------- Scroll reveal ---------------- */
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            el.classList.add("is-visible");
+            io.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${className}`}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
+      {children}
+    </div>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="section-divider" />
+    </div>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -90,10 +138,13 @@ function Index() {
       <Hero />
       <TrustStrip />
       <About />
+      <Divider />
       <Services />
       <WhyUs />
+      <Divider />
       <Process />
       <Gallery />
+      <Divider />
       <Testimonials />
       <Faq />
       <Location />
