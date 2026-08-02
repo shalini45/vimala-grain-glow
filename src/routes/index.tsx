@@ -279,45 +279,46 @@ function Hero() {
       />
       <div className="absolute inset-0 -z-10 bg-[var(--gradient-hero)]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 pt-12 pb-24 sm:px-6 lg:pt-24">
+      <div className="grain-overlay absolute inset-0 -z-10" />
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-16 pb-28 sm:px-8 lg:pt-28">
         <div className="max-w-3xl animate-fade-up text-primary-foreground">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" /> Trusted in Bangalore for 10+ years
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight text-white drop-shadow sm:text-5xl lg:text-6xl">
+          <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.08] text-white drop-shadow sm:text-6xl lg:text-7xl">
             Fresh & Hygienic <span className="text-gradient-warm">Flour Grinding</span> Services in Bangalore
           </h1>
-          <p className="mt-5 max-w-2xl text-base text-white/90 sm:text-lg">
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl">
             For over 10 years, Vimala Flour Mill has been providing high-quality
             wet and dry grinding services with precision, hygiene, and customer satisfaction.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap gap-4">
             <a href={`tel:${PHONE}`}>
-              <Button size="lg" className="rounded-full bg-[var(--gradient-warm)] text-base shadow-[var(--shadow-warm)] hover:opacity-95">
+              <Button size="lg" className="glass-cta rounded-full bg-transparent px-7 text-base font-semibold hover:bg-transparent">
                 <Phone className="mr-2 h-5 w-5" /> Call Now
               </Button>
             </a>
             <a href={waLink("Hi Vimala Flour Mill, I'd like to enquire about your grinding services.")} target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full border-white/40 bg-white/10 text-base text-white backdrop-blur hover:bg-white/20 hover:text-white">
+              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border-0 px-7 text-base font-semibold text-white hover:text-white">
                 <MessageCircle className="mr-2 h-5 w-5" /> WhatsApp Us
               </Button>
             </a>
             <a href={MAPS_URL} target="_blank" rel="noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full border-white/40 bg-white/10 text-base text-white backdrop-blur hover:bg-white/20 hover:text-white">
+              <Button size="lg" variant="outline" className="glass-cta-light rounded-full border-0 px-7 text-base font-semibold text-white hover:text-white">
                 <MapPin className="mr-2 h-5 w-5" /> Get Directions
               </Button>
             </a>
           </div>
 
-          <ul className="mt-8 grid grid-cols-2 gap-3 text-sm text-white/95 sm:grid-cols-4">
+          <ul className="mt-12 grid grid-cols-2 gap-3 text-sm text-white/95 sm:grid-cols-4">
             {[
               "10+ Years Experience",
               "Home Delivery Available",
               "Wet & Dry Grinding",
               "Quality Assured",
             ].map((t) => (
-              <li key={t} className="flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 backdrop-blur">
+              <li key={t} className="flex items-center gap-2 rounded-[18px] border border-white/15 bg-white/10 px-4 py-3 backdrop-blur">
                 <CheckCircle2 className="h-4 w-4 text-[oklch(0.85_0.15_85)]" />
                 <span className="font-medium">{t}</span>
               </li>
@@ -340,11 +341,11 @@ function TrustStrip() {
     { icon: Leaf, label: "Natural & Fresh" },
   ];
   return (
-    <div className="border-y bg-[color:var(--cream)]">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-6 sm:px-6 md:grid-cols-4">
+    <div className="border-y border-border/60 bg-[color:var(--cream)]">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-5 py-9 sm:px-8 md:grid-cols-4">
         {items.map((it) => (
-          <div key={it.label} className="flex items-center justify-center gap-3 text-sm font-medium text-foreground/80">
-            <it.icon className="h-5 w-5 text-primary" />
+          <div key={it.label} className="flex items-center justify-center gap-3 text-[15px] font-medium tracking-wide text-foreground/80">
+            <it.icon className="h-5 w-5 shrink-0 text-primary" strokeWidth={1.75} />
             {it.label}
           </div>
         ))}
@@ -356,12 +357,14 @@ function TrustStrip() {
 /* ---------------- Section helpers ---------------- */
 function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
-      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</span>
-      <h2 className="mt-3 text-3xl font-bold text-foreground sm:text-4xl">{title}</h2>
-      {subtitle && <p className="mt-3 text-muted-foreground">{subtitle}</p>}
-      <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-[var(--gradient-warm)]" />
-    </div>
+    <Reveal>
+      <div className="mx-auto max-w-2xl text-center">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">{eyebrow}</span>
+        <h2 className="mt-4 text-[2.1rem] font-bold text-foreground sm:text-[2.75rem]">{title}</h2>
+        {subtitle && <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{subtitle}</p>}
+        <div className="mx-auto mt-7 h-[3px] w-20 rounded-full bg-[var(--gradient-warm)]" />
+      </div>
+    </Reveal>
   );
 }
 
