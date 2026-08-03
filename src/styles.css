@@ -184,6 +184,27 @@
 @utility animate-float {
   animation: float-slow 4s ease-in-out infinite;
 }
+@utility animate-float-delayed {
+  animation: float-slow 6s ease-in-out 0.8s infinite;
+}
+@utility animate-float-slower {
+  animation: float-slow 8s ease-in-out 1.6s infinite;
+}
+
+/* Hero staggered entrance */
+.hero-in {
+  opacity: 0;
+  animation: fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-in-1 { animation-delay: 0.05s; }
+.hero-in-2 { animation-delay: 0.18s; }
+.hero-in-3 { animation-delay: 0.31s; }
+.hero-in-4 { animation-delay: 0.44s; }
+.hero-in-5 { animation-delay: 0.57s; }
+.hero-in-6 { animation-delay: 0.7s; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-in { opacity: 1; animation: none; }
+}
 @utility text-gradient-warm {
   background: var(--gradient-warm);
   -webkit-background-clip: text;
