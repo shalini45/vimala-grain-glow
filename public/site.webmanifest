@@ -1,0 +1,21 @@
+{
+  "name": "Vimala Flour Mill",
+  "short_name": "Vimala Mill",
+  "description": "Fresh & hygienic wet and dry flour grinding services in Bangalore.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdfaf5",
+  "theme_color": "#a9642c",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

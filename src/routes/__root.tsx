@@ -77,11 +77,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#a9642c" },
       { title: "Vimala Flour Mill — Fresh Flour Grinding Services in Bangalore" },
-      { name: "description", content: "Trusted flour mill in Bangalore offering wet & dry grinding — wheat, ragi, rice, idli/dosa batter, masalas & health mix. 10+ years, home delivery, 9 AM–10 PM." },
-      { name: "keywords", content: "Flour Mill Bangalore, Flour Grinding Services Bangalore, Wet Grinding Bangalore, Dry Grinding Bangalore, Ragi Flour Bangalore, Wheat Flour Grinding, Idli Dosa Batter Grinding, Health Mix Bangalore, Home Delivery Flour Mill" },
-      { property: "og:title", content: "Vimala Flour Mill — Fresh Flour Grinding Services in Bangalore" },
-      { property: "og:description", content: "Wet & dry grinding by trusted neighbourhood mill in N.S. Layout, Bangalore. Home delivery available." },
+      {
+        name: "description",
+        content:
+          "Trusted flour mill in Bangalore offering wet & dry grinding — wheat, ragi, rice, idli/dosa batter, masalas & health mix. 10+ years, home delivery, 9 AM–10 PM.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Flour Mill Bangalore, Flour Grinding Services Bangalore, Wet Grinding Bangalore, Dry Grinding Bangalore, Ragi Flour Bangalore, Wheat Flour Grinding, Idli Dosa Batter Grinding, Health Mix Bangalore, Home Delivery Flour Mill",
+      },
+      {
+        property: "og:title",
+        content: "Vimala Flour Mill — Fresh Flour Grinding Services in Bangalore",
+      },
+      {
+        property: "og:description",
+        content:
+          "Wet & dry grinding by trusted neighbourhood mill in N.S. Layout, Bangalore. Home delivery available.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -92,8 +108,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,

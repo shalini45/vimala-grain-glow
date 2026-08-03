@@ -70,14 +70,14 @@
   --card-foreground: oklch(0.24 0.04 55);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.24 0.04 55);
-  --primary: oklch(0.55 0.13 55);        /* warm amber/wheat brown */
+  --primary: oklch(0.55 0.13 55); /* warm amber/wheat brown */
   --primary-foreground: oklch(0.99 0.005 80);
   --primary-glow: oklch(0.72 0.16 70);
   --secondary: oklch(0.94 0.03 80);
   --secondary-foreground: oklch(0.3 0.05 55);
   --muted: oklch(0.95 0.02 80);
   --muted-foreground: oklch(0.48 0.04 60);
-  --accent: oklch(0.78 0.14 60);          /* golden grain */
+  --accent: oklch(0.78 0.14 60); /* golden grain */
   --accent-foreground: oklch(0.22 0.04 55);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0.005 80);
@@ -92,8 +92,10 @@
   --gradient-hero: linear-gradient(180deg, oklch(0.2 0.04 55 / 0.15), oklch(0.2 0.04 55 / 0.75));
   --shadow-warm: 0 20px 50px -20px oklch(0.4 0.12 55 / 0.35);
   --shadow-soft: 0 8px 24px -10px oklch(0.4 0.1 55 / 0.18);
-  --shadow-premium: 0 2px 4px -2px oklch(0.4 0.1 55 / 0.10), 0 12px 32px -12px oklch(0.4 0.1 55 / 0.22);
-  --shadow-lift: 0 6px 12px -6px oklch(0.4 0.1 55 / 0.14), 0 28px 60px -24px oklch(0.4 0.12 55 / 0.32);
+  --shadow-premium:
+    0 2px 4px -2px oklch(0.4 0.1 55 / 0.1), 0 12px 32px -12px oklch(0.4 0.1 55 / 0.22);
+  --shadow-lift:
+    0 6px 12px -6px oklch(0.4 0.1 55 / 0.14), 0 28px 60px -24px oklch(0.4 0.12 55 / 0.32);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -152,7 +154,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     font-size: 17px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
@@ -162,20 +164,34 @@
     scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4 {
-    font-family: 'Playfair Display', Georgia, serif;
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", Georgia, serif;
     letter-spacing: -0.02em;
     line-height: 1.15;
   }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 @utility animate-fade-up {
@@ -196,14 +212,29 @@
   opacity: 0;
   animation: fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.hero-in-1 { animation-delay: 0.05s; }
-.hero-in-2 { animation-delay: 0.18s; }
-.hero-in-3 { animation-delay: 0.31s; }
-.hero-in-4 { animation-delay: 0.44s; }
-.hero-in-5 { animation-delay: 0.57s; }
-.hero-in-6 { animation-delay: 0.7s; }
+.hero-in-1 {
+  animation-delay: 0.05s;
+}
+.hero-in-2 {
+  animation-delay: 0.18s;
+}
+.hero-in-3 {
+  animation-delay: 0.31s;
+}
+.hero-in-4 {
+  animation-delay: 0.44s;
+}
+.hero-in-5 {
+  animation-delay: 0.57s;
+}
+.hero-in-6 {
+  animation-delay: 0.7s;
+}
 @media (prefers-reduced-motion: reduce) {
-  .hero-in { opacity: 1; animation: none; }
+  .hero-in {
+    opacity: 1;
+    animation: none;
+  }
 }
 @utility text-gradient-warm {
   background: var(--gradient-warm);
@@ -218,7 +249,8 @@
   background-color: var(--color-card);
   border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   box-shadow: var(--shadow-premium);
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   &:hover {
     transform: translateY(-6px);
@@ -235,14 +267,18 @@
   );
   backdrop-filter: blur(14px) saturate(160%);
   border: 1px solid color-mix(in oklab, white 45%, transparent);
-  box-shadow: 0 8px 24px -10px oklch(0.4 0.12 55 / 0.45),
+  box-shadow:
+    0 8px 24px -10px oklch(0.4 0.12 55 / 0.45),
     inset 0 1px 0 color-mix(in oklab, white 55%, transparent);
   color: oklch(0.22 0.04 55);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease,
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
     background 0.35s ease;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 34px -12px oklch(0.4 0.12 55 / 0.55),
+    box-shadow:
+      0 14px 34px -12px oklch(0.4 0.12 55 / 0.55),
       inset 0 1px 0 color-mix(in oklab, white 65%, transparent);
   }
 }
@@ -253,7 +289,9 @@
   border: 1px solid color-mix(in oklab, white 55%, transparent);
   color: white;
   text-shadow: 0 1px 6px rgb(0 0 0 / 0.45);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.35s ease;
   &:hover {
     transform: translateY(-2px);
     background: color-mix(in oklab, oklch(0.24 0.04 55) 60%, transparent);
@@ -284,7 +322,8 @@
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
@@ -297,5 +336,11 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .animate-float,
+  .animate-float-delayed,
+  .animate-float-slower,
+  .animate-ping {
+    animation: none;
   }
 }
