@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Phone, MessageCircle, MapPin, Clock, Sparkles, Truck, ShieldCheck,
   Award, Leaf, ChevronDown, Menu, X, Send, Star, ArrowRight, CheckCircle2, Wheat,
+  Calendar, Users,
 } from "lucide-react";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
