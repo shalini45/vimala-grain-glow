@@ -389,50 +389,127 @@ function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; title: s
   );
 }
 
+/* ---------------- Animated counter ---------------- */
+function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const duration = 1600;
+            const startTime = performance.now();
+            const animate = (now: number) => {
+              const progress = Math.min((now - startTime) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 4);
+              setCount(Math.floor(eased * target));
+              if (progress < 1) requestAnimationFrame(animate);
+            };
+            requestAnimationFrame(animate);
+            io.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [target]);
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
+function StatCard({
+  icon: Icon,
+  value,
+  suffix,
+  label,
+  delay = 0,
+}: {
+  icon: React.ElementType;
+  value: number;
+  suffix?: string;
+  label: string;
+  delay?: number;
+}) {
+  return (
+    <Reveal delay={delay}>
+      <div className="card-premium group h-full p-7 text-center sm:text-left">
+        <div className="mx-auto inline-flex rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 p-4 text-primary ring-1 ring-primary/10 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[var(--shadow-soft)] sm:mx-0">
+          <Icon className="h-7 w-7" strokeWidth={1.6} />
+        </div>
+        <div className="mt-5 font-[Playfair_Display] text-4xl font-bold text-foreground">
+          <AnimatedCounter target={value} suffix={suffix} />
+        </div>
+        <div className="mt-2 text-sm font-medium uppercase tracking-[0.12em] text-muted-foreground">
+          {label}
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
 /* ---------------- About ---------------- */
 function About() {
   return (
-    <section id="about" className="py-28 sm:py-36">
-      <div className="mx-auto grid max-w-7xl gap-16 px-5 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-20">
+    <section id="about" className="relative overflow-hidden py-28 sm:py-36">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[var(--cream)] via-background to-[var(--wheat)]/25" />
+      <div className="mx-auto grid max-w-7xl gap-20 px-5 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-24">
         <Reveal className="relative">
-          <img
-            src={vfmShop}
-            alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
-            loading="lazy"
-            width={1200}
-            height={900}
-            className="rounded-[18px] object-cover shadow-[var(--shadow-lift)]"
-          />
-          <div className="absolute -bottom-7 -right-4 hidden rounded-[18px] bg-[var(--gradient-warm)] px-7 py-5 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
-            <div className="text-3xl font-bold">10+</div>
-            <div className="text-[11px] uppercase tracking-[0.2em]">Years Serving Bangalore</div>
+          <div className="relative">
+            <img
+              src={vfmShop}
+              alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
+              loading="lazy"
+              width={1200}
+              height={900}
+              className="rounded-[18px] object-cover shadow-[var(--shadow-lift)]"
+            />
+            <div className="absolute inset-0 rounded-[18px] ring-1 ring-inset ring-primary/10" />
+            <div className="absolute -bottom-8 -right-6 hidden rounded-[18px] bg-[var(--gradient-warm)] px-8 py-6 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
+              <div className="text-4xl font-bold">10+</div>
+              <div className="text-[11px] uppercase tracking-[0.2em]">Years Serving Bangalore</div>
+            </div>
           </div>
         </Reveal>
-        <Reveal delay={120}>
-          <SectionHeader eyebrow="About Us" title="A trusted neighbourhood flour mill" />
-          <p className="mt-8 text-[17px] leading-[1.85] text-muted-foreground">
-            Vimala Flour Mill is a trusted neighbourhood flour mill serving families and
-            businesses across Bangalore. We specialise in both <strong className="text-foreground">wet and dry grinding</strong>
-            {" "}services using careful processes and quality equipment.
-          </p>
-          <p className="mt-5 text-[17px] leading-[1.85] text-muted-foreground">
-            From wheat and ragi to idli batter and freshly ground masalas, we carefully
-            process every customer's ingredients to ensure freshness, consistency, and
-            satisfaction — backed by free home delivery in the locality.
-          </p>
-          <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-            {[
-              { n: "10+", l: "Years" },
-              { n: "5K+", l: "Happy Customers" },
-              { n: "20+", l: "Items Ground" },
-            ].map((s) => (
-              <div key={s.l} className="card-premium p-6 text-center">
-                <div className="font-[Playfair_Display] text-3xl font-bold text-primary">{s.n}</div>
-                <div className="mt-1 text-xs uppercase tracking-[0.14em] text-muted-foreground">{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+
+        <div className="lg:pl-4">
+          <Reveal>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary">
+              About Us
+            </span>
+            <h2 className="mt-4 max-w-md text-[2.25rem] font-bold leading-[1.18] text-foreground sm:text-[3rem]">
+              A trusted neighbourhood flour mill
+            </h2>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <p className="mt-8 text-[17px] leading-[1.9] text-muted-foreground">
+              Vimala Flour Mill is a trusted neighbourhood flour mill serving families and
+              businesses across Bangalore. We specialise in both{" "}
+              <strong className="text-foreground">wet and dry grinding</strong> services using
+              careful processes and quality equipment.
+            </p>
+          </Reveal>
+
+          <Reveal delay={220}>
+            <p className="mt-6 text-[17px] leading-[1.9] text-muted-foreground">
+              From wheat and ragi to idli batter and freshly ground masalas, we carefully process
+              every customer's ingredients to ensure freshness, consistency, and satisfaction —
+              backed by free home delivery in the locality.
+            </p>
+          </Reveal>
+
+          <Reveal delay={320}>
+            <div className="mt-14 grid gap-5 sm:grid-cols-3">
+              <StatCard icon={Calendar} value={10} suffix="+" label="Years" />
+              <StatCard icon={Users} value={5} suffix="K+" label="Happy Customers" delay={120} />
+              <StatCard icon={Wheat} value={20} suffix="+" label="Items Ground" delay={240} />
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
