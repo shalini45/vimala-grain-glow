@@ -30,24 +30,33 @@ export function Process() {
     <section className="bg-[color:var(--cream)] py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="How It Works" title="Simple, fresh, hassle-free" />
-        <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s, i) => (
-            <Reveal key={s.n} className="h-full" delay={i * 90}>
-              <div className="card-premium relative h-full p-8">
-                <div className="font-[Playfair_Display] text-5xl font-bold text-gradient-warm">
-                  {s.n}
+        <div className="relative mt-20">
+          <div className="absolute left-0 right-0 top-[38px] hidden h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent lg:block" />
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((s, i) => (
+              <Reveal key={s.n} className="h-full" delay={i * 90}>
+                <div className="card-premium relative h-full p-8 pt-9">
+                  <div className="flex items-center gap-4">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--gradient-warm)] font-[Playfair_Display] text-lg font-bold text-primary-foreground shadow-[var(--shadow-soft)] ring-4 ring-[color:var(--cream)]">
+                      {i + 1}
+                    </span>
+                    <div className="h-px flex-1 bg-border/70 lg:hidden" />
+                  </div>
+                  <div className="mt-5 font-[Playfair_Display] text-4xl font-bold text-gradient-warm">
+                    {s.n}
+                  </div>
+                  <h3 className="mt-3 text-xl font-semibold">{s.t}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.d}</p>
+                  {i < STEPS.length - 1 && (
+                    <ArrowRight
+                      className="absolute -right-4 top-9 hidden text-primary/50 lg:block"
+                      strokeWidth={1.75}
+                    />
+                  )}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold">{s.t}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.d}</p>
-                {i < STEPS.length - 1 && (
-                  <ArrowRight
-                    className="absolute -right-4 top-1/2 hidden -translate-y-1/2 text-primary/40 lg:block"
-                    strokeWidth={1.75}
-                  />
-                )}
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

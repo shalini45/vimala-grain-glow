@@ -1,4 +1,5 @@
-import { images, PHONE, ADDRESS, MAPS_URL, waLink } from "@/lib/site-config";
+import { PHONE, ADDRESS, MAPS_URL, waLink } from "@/lib/site-config";
+import { LogoMark } from "./Logo";
 
 export function Footer() {
   return (
@@ -6,14 +7,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
-            <img
-              src={images.vfmLogo}
-              alt="Vimala Flour Mill logo"
-              width={56}
-              height={56}
-              loading="lazy"
-              className="h-12 w-12 shrink-0 rounded-full bg-white/90 object-contain p-0.5"
-            />
+            <LogoMark className="h-12 w-12 shrink-0 rounded-full bg-white/90 shadow-[var(--shadow-soft)]" />
             <span className="font-[Playfair_Display] text-xl font-bold">Vimala Flour Mill</span>
           </div>
           <p className="mt-5 text-[15px] leading-relaxed text-white/70">

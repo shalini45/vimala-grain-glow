@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { useActiveSection } from "@/hooks/use-active-section";
-import { PHONE, images } from "@/lib/site-config";
+import { PHONE } from "@/lib/site-config";
+import { LogoMark } from "./Logo";
+import { CartButton } from "./CartDrawer";
 
 const links = [
   { href: "#about", id: "about", label: "About" },
   { href: "#services", id: "services", label: "Services" },
   { href: "#why", id: "why", label: "Why Us" },
   { href: "#gallery", id: "gallery", label: "Gallery" },
+  { href: "#products", id: "products", label: "Shop" },
   { href: "#location", id: "location", label: "Visit" },
   { href: "#contact", id: "contact", label: "Contact" },
 ];
@@ -38,13 +41,7 @@ export function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
         <a href="#top" className="flex min-w-0 items-center gap-3">
-          <img
-            src={images.vfmLogo}
-            alt="Vimala Flour Mill logo"
-            width={64}
-            height={64}
-            className="h-12 w-12 shrink-0 rounded-full bg-white/90 object-contain p-0.5 shadow-[var(--shadow-soft)] ring-1 ring-white/70 transition-transform duration-500 hover:scale-105 sm:h-14 sm:w-14"
-          />
+          <LogoMark className="h-12 w-12 shrink-0 rounded-full bg-white/90 shadow-[var(--shadow-soft)] ring-1 ring-white/70 transition-transform duration-500 hover:scale-105 sm:h-14 sm:w-14" />
           <span className="flex min-w-0 flex-col leading-tight">
             <span
               className={cn(
@@ -86,6 +83,7 @@ export function Header() {
               {l.label}
             </a>
           ))}
+          <CartButton scrolled={scrolled} />
           <a href={`tel:${PHONE}`}>
             <Button className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-6 font-semibold hover:bg-transparent">
               <Phone className="mr-2 h-4 w-4" /> Call Now
@@ -93,42 +91,45 @@ export function Header() {
           </a>
         </nav>
 
-        <Sheet open={open} onOpenChange={setOpen}>
-          <button
-            className={cn(
-              "rounded-full p-2 transition-colors lg:hidden",
-              scrolled ? "text-foreground" : "text-white",
-            )}
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu />
-          </button>
-          <SheetContent side="right" className="flex flex-col">
-            <SheetTitle className="sr-only">Navigation menu</SheetTitle>
-            <nav className="mt-10 flex flex-col">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={active === l.id ? "page" : undefined}
-                  className={cn(
-                    "border-b border-border/50 py-4 text-[15px] font-medium transition-colors hover:text-primary",
-                    active === l.id ? "text-primary" : "text-foreground/85",
-                  )}
-                >
-                  {l.label}
+        <div className="flex items-center gap-1 lg:hidden">
+          <CartButton scrolled={scrolled} />
+          <Sheet open={open} onOpenChange={setOpen}>
+            <button
+              className={cn(
+                "rounded-full p-2 transition-colors",
+                scrolled ? "text-foreground" : "text-white",
+              )}
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu />
+            </button>
+            <SheetContent side="right" className="flex flex-col">
+              <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+              <nav className="mt-10 flex flex-col">
+                {links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={active === l.id ? "page" : undefined}
+                    className={cn(
+                      "border-b border-border/50 py-4 text-[15px] font-medium transition-colors hover:text-primary",
+                      active === l.id ? "text-primary" : "text-foreground/85",
+                    )}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+                <a href={`tel:${PHONE}`} className="mt-5" onClick={() => setOpen(false)}>
+                  <Button className="glass-cta w-full rounded-full bg-transparent text-[oklch(0.2_0.04_55)] font-semibold hover:bg-transparent">
+                    <Phone className="mr-2 h-4 w-4" /> Call Now
+                  </Button>
                 </a>
-              ))}
-              <a href={`tel:${PHONE}`} className="mt-5" onClick={() => setOpen(false)}>
-                <Button className="glass-cta w-full rounded-full bg-transparent text-[oklch(0.2_0.04_55)] font-semibold hover:bg-transparent">
-                  <Phone className="mr-2 h-4 w-4" /> Call Now
-                </Button>
-              </a>
-            </nav>
-          </SheetContent>
-        </Sheet>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
