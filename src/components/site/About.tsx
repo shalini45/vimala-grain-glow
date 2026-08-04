@@ -11,7 +11,7 @@ export function About() {
         <Reveal className="relative">
           <div className="relative">
             <img
-              src={images.vfmShop}
+              src={images.about}
               alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
               loading="lazy"
               width={1200}

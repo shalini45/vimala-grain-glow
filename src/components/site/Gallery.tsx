@@ -6,7 +6,7 @@ import { SectionHeader } from "./SectionHeader";
 import { images } from "@/lib/site-config";
 
 const GALLERY = [
-  { src: images.vfmShop, alt: "Vimala Flour Mill shop exterior" },
+  { src: images.about, alt: "Vimala Flour Mill shop exterior" },
   { src: images.vfmInterior, alt: "Inside our flour mill with Vimal grinding machines" },
   { src: images.millInterior, alt: "Mill interior view" },
   { src: images.machine, alt: "Flour mill machines" },
