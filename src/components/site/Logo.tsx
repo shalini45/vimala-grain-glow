@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import logoFM from "@/assets/logoFM.png";
 
 /**
  * Reusable brand mark for Vimala Flour Mill.
@@ -167,7 +168,11 @@ export function Logo({
 }) {
   return (
     <div className={cn("flex min-w-0 items-center gap-3", className)}>
-      <LogoMark className={markClassName} />
+      <img
+        src={logoFM}
+        alt="Vimala Flour Mill logo"
+        className={cn("h-12 w-12 shrink-0 object-contain", markClassName)}
+      />
       <span className="flex min-w-0 flex-col leading-tight">
         <span
           className={cn(

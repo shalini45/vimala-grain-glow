@@ -6,9 +6,8 @@ import chilliImg from "@/assets/chilli-powder.jpg";
 import healthMixImg from "@/assets/health-mix.jpg";
 import sacksImg from "@/assets/sacks.jpg";
 import machineImg from "@/assets/machine.jpg";
-import vfmShopAsset from "@/assets/vfm-shop.png.asset.json";
 import vfmInteriorAsset from "@/assets/vfm-interior.png.asset.json";
-import vfmLogoAsset from "@/assets/vfm-logo.png.asset.json";
+import aboutImg from "@/assets/About.png";
 
 export const images = {
   hero: heroImg,
@@ -19,9 +18,8 @@ export const images = {
   healthMix: healthMixImg,
   sacks: sacksImg,
   machine: machineImg,
-  vfmShop: vfmShopAsset.url,
   vfmInterior: vfmInteriorAsset.url,
-  vfmLogo: vfmLogoAsset.url,
+  about: aboutImg,
 };
 
 export const PHONE = "+919480975441";
