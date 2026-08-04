@@ -7,6 +7,7 @@ import { Services } from "@/components/site/Services";
 import { WhyUs } from "@/components/site/WhyUs";
 import { Process } from "@/components/site/Process";
 import { Gallery } from "@/components/site/Gallery";
+import { Products } from "@/components/site/Products";
 import { Testimonials } from "@/components/site/Testimonials";
 import { Faq } from "@/components/site/Faq";
 import { Location } from "@/components/site/Location";
@@ -15,6 +16,7 @@ import { Footer } from "@/components/site/Footer";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { BackToTop } from "@/components/site/BackToTop";
 import { Divider } from "@/components/site/Reveal";
+import { CartProvider } from "@/hooks/use-cart";
 import { PHONE } from "@/lib/site-config";
 
 export const Route = createFileRoute("/")({
@@ -64,26 +66,29 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Toaster position="top-center" richColors />
-      <Header />
-      <Hero />
-      <TrustStrip />
-      <About />
-      <Divider />
-      <Services />
-      <WhyUs />
-      <Divider />
-      <Process />
-      <Gallery />
-      <Divider />
-      <Testimonials />
-      <Faq />
-      <Location />
-      <Contact />
-      <Footer />
-      <FloatingWhatsApp />
-      <BackToTop />
-    </div>
+    <CartProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <Toaster position="top-center" richColors />
+        <Header />
+        <Hero />
+        <TrustStrip />
+        <About />
+        <Divider />
+        <Services />
+        <WhyUs />
+        <Divider />
+        <Process />
+        <Gallery />
+        <Divider />
+        <Products />
+        <Testimonials />
+        <Faq />
+        <Location />
+        <Contact />
+        <Footer />
+        <FloatingWhatsApp />
+        <BackToTop />
+      </div>
+    </CartProvider>
   );
 }
