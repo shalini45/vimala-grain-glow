@@ -29,7 +29,7 @@ export function ProductVisual({ product, className }: { product: Product; classN
   return (
     <div
       className={cn(
-        "flex h-full w-full items-center justify-center bg-[var(--gradient-warm)]",
+        "flex h-full w-full items-center justify-center bg-[image:var(--gradient-warm)]",
         className,
       )}
     >

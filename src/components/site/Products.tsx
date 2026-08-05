@@ -69,7 +69,7 @@ function ProductCard({ product }: { product: Product }) {
             type="button"
             disabled={!product.available}
             onClick={handleAdd}
-            className="h-9 flex-1 rounded-full bg-[var(--gradient-warm)] text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-transform hover:scale-[1.02] disabled:opacity-50"
+            className="h-9 flex-1 rounded-full bg-[image:var(--gradient-warm)] text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-transform hover:scale-[1.02] disabled:opacity-50"
           >
             <ShoppingCart className="mr-1.5 h-4 w-4" /> Add to Cart
           </Button>

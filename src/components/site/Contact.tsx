@@ -30,8 +30,15 @@ export function Contact() {
       return;
     }
     setSubmitting(true);
-    const msg = `*New Enquiry — Vimala Flour Mill*%0A%0A*Name:* ${form.name}%0A*Phone:* ${form.phone}%0A*Service:* ${form.service || "—"}%0A*Message:* ${form.message || "—"}`;
-    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
+    const msg = [
+      "*New Enquiry — Vimala Flour Mill*",
+      "",
+      `*Name:* ${form.name}`,
+      `*Phone:* ${form.phone}`,
+      `*Service:* ${form.service || "—"}`,
+      `*Message:* ${form.message || "—"}`,
+    ].join("\n");
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
     toast.success("Opening WhatsApp to send your enquiry…");
     window.setTimeout(() => setSubmitting(false), 1000);
   }

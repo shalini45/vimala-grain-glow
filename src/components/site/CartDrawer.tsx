@@ -131,7 +131,7 @@ function CartDrawer({ open, onOpenChange }: { open: boolean; onOpenChange: (v: b
                   onOpenChange(false);
                   setCheckoutOpen(true);
                 }}
-                className="mt-3 h-11 w-full rounded-full bg-[var(--gradient-warm)] text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)]"
+                className="mt-3 h-11 w-full rounded-full bg-[image:var(--gradient-warm)] text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)]"
               >
                 Proceed to Checkout
               </Button>

@@ -7,19 +7,19 @@ export function About() {
   return (
     <section id="about" className="relative overflow-hidden py-28 sm:py-36">
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[var(--cream)] via-background to-[var(--wheat)]/25" />
-      <div className="mx-auto grid max-w-7xl gap-20 px-5 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-24">
+      <div className="mx-auto grid max-w-7xl gap-20 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-24">
         <Reveal className="relative">
           <div className="relative">
             <img
               src={images.about}
               alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
               loading="lazy"
-              width={1200}
-              height={900}
-              className="rounded-[18px] object-cover shadow-[var(--shadow-lift)]"
+              width={1535}
+              height={1024}
+              className="w-full rounded-[18px] object-cover shadow-[var(--shadow-lift)]"
             />
             <div className="absolute inset-0 rounded-[18px] ring-1 ring-inset ring-primary/10" />
-            <div className="absolute -bottom-8 -right-6 hidden rounded-[18px] bg-[var(--gradient-warm)] px-8 py-6 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
+            <div className="absolute -bottom-8 -right-6 hidden rounded-[18px] bg-[image:var(--gradient-warm)] px-8 py-6 text-primary-foreground shadow-[var(--shadow-warm)] sm:block">
               <div className="text-4xl font-bold">10+</div>
               <div className="text-[11px] uppercase tracking-[0.2em]">Years Serving Bangalore</div>
             </div>

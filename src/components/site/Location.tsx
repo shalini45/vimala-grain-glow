@@ -70,7 +70,7 @@ function Info({
 }) {
   return (
     <div className="flex gap-4">
-      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
         <Icon className="h-5 w-5" strokeWidth={1.75} />
       </span>
       <div className="min-w-0">
