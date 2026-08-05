@@ -46,7 +46,7 @@ export function WhyUs() {
           {POINTS.map((p, i) => (
             <Reveal key={p.t} className="h-full" delay={(i % 4) * 90}>
               <div className="card-premium h-full p-8">
-                <span className="grid h-14 w-14 place-items-center rounded-[18px] bg-[var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+                <span className="grid h-14 w-14 place-items-center rounded-[18px] bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
                   <p.icon className="h-6 w-6" strokeWidth={1.75} />
                 </span>
                 <h3 className="mt-6 text-lg font-semibold">{p.t}</h3>

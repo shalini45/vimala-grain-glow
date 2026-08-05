@@ -31,7 +31,7 @@ export function Hero() {
         fetchPriority="high"
         decoding="async"
       />
-      <div className="absolute inset-0 -z-10 bg-[var(--gradient-hero)]" />
+      <div className="absolute inset-0 -z-10 bg-[image:var(--gradient-hero)]" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/90 via-black/75 to-black/50" />
       <div className="absolute inset-0 -z-10 bg-black/25" />
       <div className="grain-overlay absolute inset-0 -z-10" />

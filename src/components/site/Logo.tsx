@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 import logoFM from "@/assets/logoFM.png";
 
@@ -7,6 +8,10 @@ import logoFM from "@/assets/logoFM.png";
  * scales cleanly for navbar, footer, favicon-style contexts, print/packaging.
  */
 export function LogoMark({ className }: { className?: string }) {
+  const uid = useId();
+  const ringId = `vfm-ring-${uid}`;
+  const creamId = `vfm-cream-${uid}`;
+  const stoneId = `vfm-stone-${uid}`;
   return (
     <svg
       viewBox="0 0 120 120"
@@ -15,16 +20,16 @@ export function LogoMark({ className }: { className?: string }) {
       aria-label="Vimala Flour Mill emblem"
     >
       <defs>
-        <linearGradient id="vfm-ring" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={ringId} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="oklch(0.86 0.13 85)" />
           <stop offset="55%" stopColor="oklch(0.72 0.15 68)" />
           <stop offset="100%" stopColor="oklch(0.55 0.13 55)" />
         </linearGradient>
-        <linearGradient id="vfm-cream" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={creamId} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="oklch(0.99 0.01 85)" />
           <stop offset="100%" stopColor="oklch(0.95 0.02 82)" />
         </linearGradient>
-        <linearGradient id="vfm-stone" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={stoneId} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="oklch(0.6 0.12 58)" />
           <stop offset="100%" stopColor="oklch(0.4 0.09 50)" />
         </linearGradient>
@@ -35,8 +40,8 @@ export function LogoMark({ className }: { className?: string }) {
         cx="60"
         cy="60"
         r="57"
-        fill="url(#vfm-cream)"
-        stroke="url(#vfm-ring)"
+        fill={`url(#${creamId})`}
+        stroke={`url(#${ringId})`}
         strokeWidth="3.5"
       />
       <circle
@@ -50,7 +55,7 @@ export function LogoMark({ className }: { className?: string }) {
 
       {/* mill grindstone */}
       <g>
-        <circle cx="60" cy="66" r="24" fill="url(#vfm-stone)" />
+        <circle cx="60" cy="66" r="24" fill={`url(#${stoneId})`} />
         <circle
           cx="60"
           cy="66"
@@ -149,7 +154,7 @@ export function LogoMark({ className }: { className?: string }) {
       <path
         d="M20 96 Q60 108 100 96"
         fill="none"
-        stroke="url(#vfm-ring)"
+        stroke={`url(#${ringId})`}
         strokeWidth="2.5"
         strokeLinecap="round"
       />

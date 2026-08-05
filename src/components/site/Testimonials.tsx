@@ -38,7 +38,7 @@ export function Testimonials() {
                   "{r.r}"
                 </blockquote>
                 <figcaption className="mt-7 flex items-center gap-3">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--gradient-warm)] font-bold text-primary-foreground">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[image:var(--gradient-warm)] font-bold text-primary-foreground">
                     {r.n[0]}
                   </span>
                   <span className="min-w-0">

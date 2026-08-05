@@ -19,7 +19,7 @@ export function SectionHeader({
         {subtitle && (
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{subtitle}</p>
         )}
-        <div className="mx-auto mt-7 h-[3px] w-20 rounded-full bg-[var(--gradient-warm)]" />
+        <div className="mx-auto mt-7 h-[3px] w-20 rounded-full bg-[image:var(--gradient-warm)]" />
       </div>
     </Reveal>
   );

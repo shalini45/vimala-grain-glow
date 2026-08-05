@@ -37,7 +37,7 @@ export function Process() {
               <Reveal key={s.n} className="h-full" delay={i * 90}>
                 <div className="card-premium relative h-full p-8 pt-9">
                   <div className="flex items-center gap-4">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--gradient-warm)] font-[Playfair_Display] text-lg font-bold text-primary-foreground shadow-[var(--shadow-soft)] ring-4 ring-[color:var(--cream)]">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[image:var(--gradient-warm)] font-[Playfair_Display] text-lg font-bold text-primary-foreground shadow-[var(--shadow-soft)] ring-4 ring-[color:var(--cream)]">
                       {i + 1}
                     </span>
                     <div className="h-px flex-1 bg-border/70 lg:hidden" />
