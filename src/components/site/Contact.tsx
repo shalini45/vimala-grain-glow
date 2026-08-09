@@ -6,10 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { SectionHeader } from "./SectionHeader";
 import { WHATSAPP } from "@/lib/site-config";
-
-function isValidPhone(value: string) {
-  return value.replace(/\D/g, "").length >= 10;
-}
+import { isValidIndianPhone } from "@/lib/validation";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 export function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", service: "", message: "" });
@@ -25,8 +23,8 @@ export function Contact() {
       toast.error("Please share your name and phone number.");
       return;
     }
-    if (!isValidPhone(form.phone)) {
-      toast.error("Please enter a valid phone number.");
+    if (!isValidIndianPhone(form.phone)) {
+      toast.error("Please enter a valid 10-digit Indian mobile number.");
       return;
     }
     setSubmitting(true);
@@ -38,9 +36,22 @@ export function Contact() {
       `*Service:* ${form.service || "—"}`,
       `*Message:* ${form.message || "—"}`,
     ].join("\n");
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
-    toast.success("Opening WhatsApp to send your enquiry…");
-    window.setTimeout(() => setSubmitting(false), 1000);
+    const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+    const opened = openWhatsApp(link);
+    if (opened) {
+      toast.success("Opening WhatsApp to send your enquiry…");
+    } else {
+      toast.error(
+        <span>
+          WhatsApp didn't open automatically.{" "}
+          <a href={link} target="_blank" rel="noreferrer" className="underline">
+            Tap here to send your enquiry
+          </a>
+          .
+        </span>,
+      );
+    }
+    setSubmitting(false);
   }
 
   return (

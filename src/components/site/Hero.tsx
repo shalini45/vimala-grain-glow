@@ -13,7 +13,15 @@ import {
   Leaf,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { images, PHONE, MAPS_URL, waLink } from "@/lib/site-config";
+import {
+  images,
+  PHONE,
+  MAPS_URL,
+  waLink,
+  GOOGLE_RATING,
+  GOOGLE_REVIEW_COUNT,
+  GOOGLE_REVIEWS_URL,
+} from "@/lib/site-config";
 
 export function Hero() {
   return (
@@ -49,17 +57,28 @@ export function Hero() {
             <Sparkles className="h-3.5 w-3.5" /> Trusted in Bangalore for 10+ years
           </span>
 
-          <div className="hero-in hero-in-2 mt-6 inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-4 py-2 backdrop-blur">
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="hero-in hero-in-2 mt-6 inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 px-4 py-2 backdrop-blur transition-colors hover:bg-white/15"
+          >
             <span className="flex items-center gap-0.5">
               {[0, 1, 2, 3, 4].map((i) => (
                 <Star
                   key={i}
-                  className="h-4 w-4 fill-[oklch(0.85_0.15_85)] text-[oklch(0.85_0.15_85)]"
+                  className={
+                    i < Math.round(GOOGLE_RATING)
+                      ? "h-4 w-4 fill-[oklch(0.85_0.15_85)] text-[oklch(0.85_0.15_85)]"
+                      : "h-4 w-4 fill-transparent text-white/40"
+                  }
                 />
               ))}
             </span>
-            <span className="text-sm font-semibold text-white">Rated by 5000+ Happy Customers</span>
-          </div>
+            <span className="text-sm font-semibold text-white">
+              {GOOGLE_RATING.toFixed(1)} on Google · {GOOGLE_REVIEW_COUNT} reviews
+            </span>
+          </a>
 
           <h1 className="hero-in hero-in-3 mt-7 text-[3rem] font-bold leading-[1.06] text-white drop-shadow-lg sm:text-7xl lg:text-[5.25rem]">
             <span className="text-gradient-warm">Fresh</span> &amp; Hygienic Flour{" "}

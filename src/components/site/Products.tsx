@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Minus, Plus, ShoppingCart, CheckCircle2 } from "lucide-react";
+import { Minus, Plus, ShoppingCart, CheckCircle2, MessageCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
@@ -7,6 +7,41 @@ import { ProductVisual } from "./ProductVisual";
 import { useCart } from "@/hooks/use-cart";
 import { products, type Product } from "@/lib/products";
 import { toast } from "sonner";
+import { waLink } from "@/lib/site-config";
+
+function CustomOrderCard() {
+  return (
+    <div className="card-premium flex h-full flex-col overflow-hidden border-2 border-dashed border-primary/30 bg-primary/[0.03]">
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
+        <span className="grid h-14 w-14 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+          <Sparkles className="h-6 w-6" strokeWidth={1.75} />
+        </span>
+        <div>
+          <h3 className="text-lg font-semibold text-foreground">Custom Blends &amp; Bulk Orders</h3>
+          <p className="mt-1.5 text-[14px] leading-relaxed text-muted-foreground">
+            Ginger-garlic paste, chutneys, custom health mixes, ragi cleaning, bulk grinding for
+            events and caterers — priced on request. WhatsApp us your requirement.
+          </p>
+        </div>
+        <a
+          href={waLink(
+            "Hi, I'd like to place a custom or bulk order that's not in your online shop.",
+          )}
+          target="_blank"
+          rel="noreferrer"
+          className="w-full"
+        >
+          <Button
+            type="button"
+            className="h-9 w-full rounded-full bg-[image:var(--gradient-warm)] text-sm font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-transform hover:scale-[1.02]"
+          >
+            <MessageCircle className="mr-1.5 h-4 w-4" /> Enquire on WhatsApp
+          </Button>
+        </a>
+      </div>
+    </div>
+  );
+}
 
 function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
@@ -98,6 +133,9 @@ export function Products() {
               <ProductCard product={product} />
             </Reveal>
           ))}
+          <Reveal className="h-full" delay={(products.length % 4) * 80}>
+            <CustomOrderCard />
+          </Reveal>
         </div>
       </div>
     </section>
