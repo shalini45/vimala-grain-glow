@@ -1,7 +1,7 @@
-import { Calendar, Users, Wheat } from "lucide-react";
+import { Calendar, Star, Wheat } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { StatCard } from "./AnimatedCounter";
-import { images } from "@/lib/site-config";
+import { images, GOOGLE_RATING, GOOGLE_REVIEW_COUNT, GOOGLE_REVIEWS_URL } from "@/lib/site-config";
 
 export function About() {
   return (
@@ -56,7 +56,24 @@ export function About() {
           <Reveal delay={320}>
             <div className="mt-14 grid gap-5 sm:grid-cols-3">
               <StatCard icon={Calendar} value={10} suffix="+" label="Years" />
-              <StatCard icon={Users} value={5} suffix="K+" label="Happy Customers" delay={120} />
+              <a
+                href={GOOGLE_REVIEWS_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="block h-full"
+              >
+                <div className="card-premium group h-full p-7 text-center transition-colors hover:border-primary/30 sm:text-left">
+                  <div className="mx-auto inline-flex rounded-2xl bg-gradient-to-br from-primary/15 to-accent/15 p-4 text-primary ring-1 ring-primary/10 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[var(--shadow-soft)] sm:mx-0">
+                    <Star className="h-7 w-7" strokeWidth={1.6} />
+                  </div>
+                  <div className="mt-5 font-[Playfair_Display] text-4xl font-bold text-foreground">
+                    {GOOGLE_RATING.toFixed(1)}
+                  </div>
+                  <div className="mt-2 text-sm font-medium uppercase tracking-[0.12em] text-muted-foreground">
+                    Google Rating &middot; {GOOGLE_REVIEW_COUNT} Reviews
+                  </div>
+                </div>
+              </a>
               <StatCard icon={Wheat} value={20} suffix="+" label="Items Ground" delay={240} />
             </div>
           </Reveal>
