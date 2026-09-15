@@ -17,7 +17,7 @@ import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { BackToTop } from "@/components/site/BackToTop";
 import { Divider } from "@/components/site/Reveal";
 import { CartProvider } from "@/hooks/use-cart";
-import { PHONE } from "@/lib/site-config";
+import { PHONE, SITE_URL } from "@/lib/site-config";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,9 +34,10 @@ export const Route = createFileRoute("/")({
         content:
           "Trusted neighbourhood flour mill. Wet & dry grinding with home delivery in Bangalore.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: SITE_URL }],
     scripts: [
       {
         type: "application/ld+json",
@@ -44,7 +45,8 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           name: "Vimala Flour Mill",
-          image: "/og-image.jpg",
+          url: SITE_URL,
+          image: `${SITE_URL}/og-image.jpg`,
           telephone: PHONE,
           address: {
             "@type": "PostalAddress",

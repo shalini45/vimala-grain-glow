@@ -24,8 +24,12 @@ export const images = {
 
 export const PHONE = "+919480975441";
 export const WHATSAPP = "919480975441";
+export const EMAIL = "contact@vimalaflourmill.in";
 export const ADDRESS =
   "No. 46, 2nd Cross, 7th Main, N.S. Layout, Subbanna Palya, Bangalore - 560043";
+
+/** Production domain — update sitemap.xml and robots.txt too if this changes. */
+export const SITE_URL = "https://vimalaflourmill.in";
 export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   "Vimala Flour Mill, " + ADDRESS,
 )}`;

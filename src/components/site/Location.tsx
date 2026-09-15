@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { ADDRESS, PHONE, MAPS_URL, waLink } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export function Location() {
   return (
@@ -25,6 +26,7 @@ export function Location() {
                   href={waLink("Hi, I'd like to enquire about your services.")}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackWhatsAppClick("location")}
                   className="hover:text-primary"
                 >
                   +91 94809 75441

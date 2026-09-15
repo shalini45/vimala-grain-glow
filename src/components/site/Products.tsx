@@ -8,6 +8,7 @@ import { useCart } from "@/hooks/use-cart";
 import { products, type Product } from "@/lib/products";
 import { toast } from "sonner";
 import { waLink } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 function CustomOrderCard() {
   return (
@@ -29,6 +30,7 @@ function CustomOrderCard() {
           )}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackWhatsAppClick("products_custom_order")}
           className="w-full"
         >
           <Button

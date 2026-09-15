@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react";
 import { waLink } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export function FloatingWhatsApp() {
   return (
@@ -7,6 +8,7 @@ export function FloatingWhatsApp() {
       href={waLink("Hi Vimala Flour Mill, I'd like to enquire.")}
       target="_blank"
       rel="noreferrer"
+      onClick={() => trackWhatsAppClick("floating_button")}
       aria-label="Chat on WhatsApp"
       className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full text-white shadow-[var(--shadow-warm)] transition-transform hover:scale-110"
       style={{ background: "var(--whatsapp)" }}

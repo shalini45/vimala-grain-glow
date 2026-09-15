@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { images, waLink } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 const WET_SERVICES = [
   "Idli Batter Grinding",
@@ -114,6 +115,7 @@ export function Services() {
             href={waLink("Hi, I'd like to know more about your grinding services.")}
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackWhatsAppClick("services")}
           >
             <Button
               size="lg"

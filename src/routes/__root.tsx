@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { GA_MEASUREMENT_ID } from "../lib/analytics";
+import { SITE_URL } from "../lib/site-config";
 
 function NotFoundComponent() {
   return (
@@ -78,6 +80,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#a9642c" },
+      // Google Search Console (HTML tag method): after adding this site at
+      // search.google.com/search-console, replace the content below with the
+      // verification code shown there, then click "Verify". Safe to remove
+      // once verified (Search Console doesn't need it after that point) or
+      // to skip entirely if you verify via DNS TXT record instead.
+      { name: "google-site-verification", content: "REPLACE_WITH_YOUR_VERIFICATION_CODE" },
       { title: "Vimala Flour Mill — Fresh Flour Grinding Services in Bangalore" },
       {
         name: "description",
@@ -99,11 +107,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Wet & dry grinding by trusted neighbourhood mill in N.S. Layout, Bangalore. Home delivery available.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
     links: [
       {
@@ -118,6 +126,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
+      },
+    ],
+    scripts: [
+      // Google Analytics 4 (gtag.js). GA_MEASUREMENT_ID is a placeholder until
+      // you paste a real GA4 Measurement ID in src/lib/analytics.ts — see the
+      // setup comment there for how to get one.
+      { src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`, async: true },
+      {
+        children: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`,
       },
     ],
   }),

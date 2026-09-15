@@ -1,4 +1,6 @@
+import { Link } from "@tanstack/react-router";
 import { PHONE, ADDRESS, MAPS_URL, waLink } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 import { LogoMark } from "./Logo";
 
 export function Footer() {
@@ -49,6 +51,7 @@ export function Footer() {
                 href={waLink("Hi Vimala Flour Mill!")}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => trackWhatsAppClick("footer")}
                 className="hover:text-white"
               >
                 WhatsApp us
@@ -64,8 +67,19 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-5 text-center text-xs text-white/60 sm:px-6">
-          © {new Date().getFullYear()} Vimala Flour Mill · All rights reserved.
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-4 py-5 text-center text-xs text-white/60 sm:flex-row sm:justify-between sm:px-6">
+          <span>© {new Date().getFullYear()} Vimala Flour Mill · All rights reserved.</span>
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5">
+            <Link to="/privacy-policy" className="hover:text-white">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="hover:text-white">
+              Terms of Service
+            </Link>
+            <Link to="/refund-policy" className="hover:text-white">
+              Delivery &amp; Refund Policy
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

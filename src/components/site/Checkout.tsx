@@ -10,6 +10,7 @@ import { products } from "@/lib/products";
 import { WHATSAPP } from "@/lib/site-config";
 import { isValidIndianPhone } from "@/lib/validation";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { trackEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 interface CheckoutForm {
   name: string;
@@ -102,12 +103,17 @@ export function Checkout({
     setSubmitting(true);
 
     const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(buildMessage())}`;
-    const opened = openWhatsApp(link);
+    const opened = openWhatsApp(link, "checkout");
     setWaLink(link);
     setWaBlocked(!opened);
     setSubmitting(false);
 
     if (opened) {
+      trackEvent("place_order", {
+        value: total,
+        currency: "INR",
+        items: items.length,
+      });
       toast.success("Opening WhatsApp — send the message to confirm your order.");
     } else {
       toast.error("WhatsApp didn't open automatically. Use the link below to send your order.");
@@ -183,7 +189,12 @@ export function Checkout({
                 </p>
               )}
 
-              <a href={waLink ?? "#"} target="_blank" rel="noreferrer">
+              <a
+                href={waLink ?? "#"}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackWhatsAppClick("checkout_reopen")}
+              >
                 <Button
                   type="button"
                   className="h-12 w-full rounded-full text-base font-semibold text-white"
