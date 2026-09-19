@@ -18,7 +18,7 @@ export function Services() {
           <p className="mx-auto mt-8 max-w-3xl text-center text-[15px] leading-relaxed text-muted-foreground">
             Bring your own grains or order from us — we offer wheat and ragi flour grinding, idli
             and dosa batter grinding, masala and health mix grinding for homes, restaurants and
-            caterers across Bangalore, with home delivery around N.S. Layout, Subbanna Palya and
+            caterers across Bangalore, with home delivery around HRBR Layout, Kalyan Nagar and
             nearby areas.
           </p>
         </Reveal>

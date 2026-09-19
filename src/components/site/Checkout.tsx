@@ -278,7 +278,7 @@ export function Checkout({
                   <Input
                     value={form.area}
                     onChange={upd("area")}
-                    placeholder="e.g. N.S. Layout"
+                    placeholder="e.g. HRBR Layout, Kalyan Nagar"
                     maxLength={80}
                   />
                 </Field>

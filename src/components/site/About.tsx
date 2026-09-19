@@ -13,7 +13,7 @@ export function About() {
           <div className="relative">
             <img
               src={images.about}
-              alt="Vimala Flour Mill shop front in N.S. Layout, Bangalore"
+              alt="Vimala Flour Mill shop front in HRBR Layout, Kalyan Nagar, Bangalore"
               loading="lazy"
               width={1535}
               height={1024}

@@ -40,7 +40,7 @@ const localBusinessLd = {
   telephone: PHONE,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "No. 46, 2nd Cross, 7th Main, N.S. Layout, Subbanna Palya",
+    streetAddress: "No. 46, 2nd Cross, 7th Main, HRBR Layout, Kalyan Nagar",
     addressLocality: "Bangalore",
     addressRegion: "Karnataka",
     postalCode: "560043",
@@ -87,7 +87,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Vimala Flour Mill in N.S. Layout, Bangalore offers hygienic wet & dry grinding — wheat, ragi, rice, idli/dosa batter, masalas & health mix. 10+ years. Home delivery available.",
+          "Vimala Flour Mill in HRBR Layout, Kalyan Nagar, Bangalore offers hygienic wet & dry grinding — wheat, ragi, rice, idli/dosa batter, masalas & health mix. 10+ years. Home delivery available.",
       },
       { property: "og:title", content: "Vimala Flour Mill — Bangalore" },
       {

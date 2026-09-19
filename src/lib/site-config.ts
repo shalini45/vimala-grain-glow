@@ -26,8 +26,7 @@ export const BUSINESS_NAME = "Vimala Flour Mill";
 export const PHONE = "+919480975441";
 export const PHONE_DISPLAY = "+91 94809 75441";
 export const WHATSAPP = "919480975441";
-export const ADDRESS =
-  "No. 46, 2nd Cross, 7th Main, N.S. Layout, Subbanna Palya, Bangalore - 560043";
+export const ADDRESS = "No. 46, 2nd Cross, 7th Main, HRBR Layout, Kalyan Nagar, Bangalore - 560043";
 
 export const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   "Vimala Flour Mill, " + ADDRESS,

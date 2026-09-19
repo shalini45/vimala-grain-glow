@@ -103,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "keywords",
         content:
-          "Flour Mill Bangalore, Flour Grinding Services Bangalore, Wet Grinding Bangalore, Dry Grinding Bangalore, Ragi Flour Bangalore, Wheat Flour Grinding, Idli Dosa Batter Grinding, Health Mix Bangalore, Home Delivery Flour Mill",
+          "Flour Mill Bangalore, Flour Mill Kalyan Nagar, Flour Mill HRBR Layout, Flour Grinding Services Bangalore, Wet Grinding Bangalore, Dry Grinding Bangalore, Ragi Flour Bangalore, Wheat Flour Grinding, Idli Dosa Batter Grinding, Health Mix Bangalore, Home Delivery Flour Mill",
       },
       {
         property: "og:title",
@@ -112,7 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Wet & dry grinding by trusted neighbourhood mill in N.S. Layout, Bangalore. Home delivery available.",
+          "Wet & dry grinding by trusted neighbourhood mill in HRBR Layout, Kalyan Nagar, Bangalore. Home delivery available.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: `${SITE_URL}/og-image.jpg` },

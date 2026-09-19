@@ -8,7 +8,7 @@ Business Name:
 Vimala Flour Mill
 
 Address:
-No. 46, 2nd Cross, 7th Main, N.S. Layout, Subbanna Palya, Bangalore - 560043
+No. 46, 2nd Cross, 7th Main, HRBR Layout, Kalyan Nagar, Bangalore - 560043
 
 Phone:
 +91 9480975441

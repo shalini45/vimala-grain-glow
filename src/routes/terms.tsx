@@ -62,8 +62,8 @@ function TermsPage() {
       <LegalSection title="Delivery">
         <ul className="list-disc space-y-1.5 pl-6">
           <li>
-            We deliver in and around N.S. Layout, Subbanna Palya and nearby areas of Bangalore.
-            We'll confirm on WhatsApp whether we can deliver to your address.
+            We deliver in and around HRBR Layout, Kalyan Nagar and nearby areas of Bangalore. We'll
+            confirm on WhatsApp whether we can deliver to your address.
           </li>
           <li>
             Delivery is <strong>free for orders of ₹{FREE_DELIVERY_THRESHOLD} and above</strong>. A

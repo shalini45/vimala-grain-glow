@@ -8,7 +8,7 @@ export const FAQS = [
   },
   {
     q: "Do you provide home delivery?",
-    a: `Yes, we deliver in and around N.S. Layout and Subbanna Palya. Delivery is free on orders of ₹${FREE_DELIVERY_THRESHOLD} and above; a ₹${DELIVERY_CHARGE} charge applies to smaller orders. Order through our online shop, or call/WhatsApp us with your order and address.`,
+    a: `Yes, we deliver in and around HRBR Layout and Kalyan Nagar. Delivery is free on orders of ₹${FREE_DELIVERY_THRESHOLD} and above; a ₹${DELIVERY_CHARGE} charge applies to smaller orders. Order through our online shop, or call/WhatsApp us with your order and address.`,
   },
   {
     q: "Can you prepare custom health mixes?",

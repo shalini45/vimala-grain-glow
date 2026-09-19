@@ -65,7 +65,7 @@ export function Location() {
   return (
     <section id="location" className="bg-[color:var(--cream)] py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeader eyebrow="Visit Us" title="Come to our mill in P.N.S. Layout" />
+        <SectionHeader eyebrow="Visit Us" title="Come to our mill in Kalyan Nagar" />
         <div className="mt-20 grid gap-10 lg:grid-cols-2">
           <Reveal className="h-full">
             <div className="card-premium h-full space-y-7 p-10">
