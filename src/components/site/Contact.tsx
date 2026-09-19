@@ -38,7 +38,7 @@ export function Contact() {
       `*Message:* ${form.message || "—"}`,
     ].join("\n");
     const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
-    const opened = openWhatsApp(link);
+    const opened = openWhatsApp(link, "contact_form");
     if (opened) {
       toast.success("Opening WhatsApp to send your enquiry…");
     } else {

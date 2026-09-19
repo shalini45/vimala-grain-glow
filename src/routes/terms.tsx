@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { LegalPage, LegalSection } from "@/components/site/LegalPage";
 import { DELIVERY_CHARGE, FREE_DELIVERY_THRESHOLD, MAX_QTY_PER_ITEM } from "@/lib/products";
 import { HOURS_LABEL, PHONE, PHONE_DISPLAY, waLink } from "@/lib/site-config";
@@ -100,7 +100,11 @@ function TermsPage() {
           </li>
           <li>
             If something isn't right with your order, please tell us within 24 hours of delivery or
-            pickup and we'll put it right with a replacement or refund.
+            pickup and we'll put it right with a replacement or refund. See our{" "}
+            <Link to="/refund-policy" className="text-primary underline">
+              Delivery &amp; Refund Policy
+            </Link>{" "}
+            for details.
           </li>
           <li>
             When you bring your own ingredients, we clean and grind them with care, but we can't be

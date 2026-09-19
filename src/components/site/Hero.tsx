@@ -22,6 +22,7 @@ import {
   GOOGLE_REVIEW_COUNT,
   GOOGLE_REVIEWS_URL,
 } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export function Hero() {
   return (
@@ -104,6 +105,7 @@ export function Hero() {
               )}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackWhatsAppClick("hero")}
             >
               <Button
                 size="lg"

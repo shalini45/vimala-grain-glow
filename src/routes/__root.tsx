@@ -15,6 +15,12 @@ import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { BackToTop } from "@/components/site/BackToTop";
 import { CartProvider } from "@/hooks/use-cart";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { GA_MEASUREMENT_ID } from "../lib/analytics";
+import { SITE_URL } from "../lib/site-config";
+
+const GOOGLE_SITE_VERIFICATION = (
+  (import.meta.env.VITE_GOOGLE_SITE_VERIFICATION as string | undefined) ?? ""
+).trim();
 
 function NotFoundComponent() {
   return (
@@ -83,6 +89,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#a9642c" },
+      // Google Search Console (HTML-tag method): set VITE_GOOGLE_SITE_VERIFICATION in .env to the
+      // code Search Console gives you. Omitted while unset.
+      ...(GOOGLE_SITE_VERIFICATION
+        ? [{ name: "google-site-verification", content: GOOGLE_SITE_VERIFICATION }]
+        : []),
       { title: "Vimala Flour Mill — Fresh Flour Grinding Services in Bangalore" },
       {
         name: "description",
@@ -104,11 +115,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Wet & dry grinding by trusted neighbourhood mill in N.S. Layout, Bangalore. Home delivery available.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
     links: [
       {
@@ -125,6 +136,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
+    // Google Analytics 4 — only loaded when VITE_GA_MEASUREMENT_ID is set (see lib/analytics.ts).
+    scripts: GA_MEASUREMENT_ID
+      ? [
+          { src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`, async: true },
+          {
+            children: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)});`,
+          },
+        ]
+      : [],
   }),
   shellComponent: RootShell,
   component: RootComponent,

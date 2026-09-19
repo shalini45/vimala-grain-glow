@@ -13,6 +13,7 @@ import {
   CLOSE_HOUR,
   waLink,
 } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 /** Current hour/minute in India, regardless of the visitor's own timezone. */
 function istNow() {
@@ -81,6 +82,7 @@ export function Location() {
                   href={waLink("Hi, I'd like to enquire about your services.")}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackWhatsAppClick("location")}
                   className="hover:text-primary"
                 >
                   {PHONE_DISPLAY}

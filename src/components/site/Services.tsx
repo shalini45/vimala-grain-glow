@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { images, waLink, WET_SERVICES, DRY_SERVICES } from "@/lib/site-config";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 export function Services() {
   return (
@@ -97,6 +98,7 @@ export function Services() {
             href={waLink("Hi, I'd like to know more about your grinding services.")}
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackWhatsAppClick("services")}
           >
             <Button
               size="lg"
