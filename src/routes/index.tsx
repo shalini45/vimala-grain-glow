@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/site/Header";
 import { Hero, TrustStrip } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
@@ -13,11 +12,73 @@ import { Faq } from "@/components/site/Faq";
 import { Location } from "@/components/site/Location";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
-import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
-import { BackToTop } from "@/components/site/BackToTop";
 import { Divider } from "@/components/site/Reveal";
-import { CartProvider } from "@/hooks/use-cart";
-import { PHONE } from "@/lib/site-config";
+import {
+  BUSINESS_NAME,
+  PHONE,
+  GEO,
+  MAPS_URL,
+  SITE_URL,
+  GOOGLE_RATING,
+  GOOGLE_REVIEW_COUNT,
+  GOOGLE_REVIEWS_URL,
+  WET_SERVICES,
+  DRY_SERVICES,
+} from "@/lib/site-config";
+import { FAQS } from "@/lib/faqs";
+
+const abs = (path: string) => `${SITE_URL}${path}`;
+
+const localBusinessLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": abs("/#business"),
+  name: BUSINESS_NAME,
+  url: abs("/"),
+  image: abs("/og-image.jpg"),
+  logo: abs("/favicon.png"),
+  telephone: PHONE,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "No. 46, 2nd Cross, 7th Main, N.S. Layout, Subbanna Palya",
+    addressLocality: "Bangalore",
+    addressRegion: "Karnataka",
+    postalCode: "560043",
+    addressCountry: "IN",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: GEO.lat, longitude: GEO.lng },
+  hasMap: MAPS_URL,
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "09:00",
+    closes: "22:00",
+  },
+  areaServed: { "@type": "City", name: "Bangalore" },
+  priceRange: "₹",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: GOOGLE_RATING,
+    reviewCount: GOOGLE_REVIEW_COUNT,
+  },
+  sameAs: [GOOGLE_REVIEWS_URL],
+  description:
+    "Flour mill in Bangalore offering wet & dry grinding services — wheat and ragi flour, idli and dosa batter, masalas and health mix — with home delivery.",
+  makesOffer: [...WET_SERVICES, ...DRY_SERVICES].map((name) => ({
+    "@type": "Offer",
+    itemOffered: { "@type": "Service", name },
+  })),
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,31 +95,18 @@ export const Route = createFileRoute("/")({
         content:
           "Trusted neighbourhood flour mill. Wet & dry grinding with home delivery in Bangalore.",
       },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: abs("/") },
+      { property: "og:image", content: abs("/og-image.jpg") },
+      { property: "og:locale", content: "en_IN" },
+      { property: "og:site_name", content: BUSINESS_NAME },
+      { name: "geo.region", content: "IN-KA" },
+      { name: "geo.placename", content: "Bangalore" },
+      { name: "geo.position", content: `${GEO.lat};${GEO.lng}` },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: abs("/") }],
     scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "Vimala Flour Mill",
-          image: "/og-image.jpg",
-          telephone: PHONE,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "No. 46, 2nd Cross, 7th Main, N.S. Layout, Subbanna Palya",
-            addressLocality: "Bangalore",
-            postalCode: "560043",
-            addressCountry: "IN",
-          },
-          openingHours: "Mo-Su 09:00-22:00",
-          priceRange: "₹",
-          description:
-            "Flour mill in Bangalore offering wet & dry grinding services with home delivery.",
-        }),
-      },
+      { type: "application/ld+json", children: JSON.stringify(localBusinessLd) },
+      { type: "application/ld+json", children: JSON.stringify(faqLd) },
     ],
   }),
   component: Index,
@@ -66,29 +114,24 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-background text-foreground">
-        <Toaster position="top-center" richColors />
-        <Header />
-        <Hero />
-        <TrustStrip />
-        <About />
-        <Divider />
-        <Services />
-        <WhyUs />
-        <Divider />
-        <Process />
-        <Gallery />
-        <Divider />
-        <Products />
-        <Testimonials />
-        <Faq />
-        <Location />
-        <Contact />
-        <Footer />
-        <FloatingWhatsApp />
-        <BackToTop />
-      </div>
-    </CartProvider>
+    <div className="min-h-screen bg-background text-foreground">
+      <Header />
+      <Hero />
+      <TrustStrip />
+      <About />
+      <Divider />
+      <Services />
+      <WhyUs />
+      <Divider />
+      <Process />
+      <Gallery />
+      <Divider />
+      <Products />
+      <Testimonials />
+      <Faq />
+      <Location />
+      <Contact />
+      <Footer />
+    </div>
   );
 }

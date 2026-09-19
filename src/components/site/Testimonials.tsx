@@ -1,4 +1,4 @@
-import { Star, ExternalLink } from "lucide-react";
+import { Star, ExternalLink, PenLine } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { GOOGLE_RATING, GOOGLE_REVIEW_COUNT, GOOGLE_REVIEWS_URL } from "@/lib/site-config";
@@ -27,7 +27,7 @@ function Stars({ rating }: { rating: number }) {
 
 export function Testimonials() {
   return (
-    <section className="bg-[color:var(--cream)] py-28 sm:py-36">
+    <section id="testimonials" className="bg-[color:var(--cream)] py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="Testimonials" title="What our customers say" />
         <div className="mt-20 grid gap-8 md:grid-cols-2">
@@ -70,6 +70,21 @@ export function Testimonials() {
             </figure>
           </Reveal>
         </div>
+        <Reveal>
+          <div className="mt-12 flex flex-col items-center gap-3 text-center">
+            <p className="text-[15px] text-muted-foreground">
+              Been to our mill? Your review helps neighbours find fresh, honest grinding.
+            </p>
+            <a
+              href={GOOGLE_REVIEWS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+            >
+              <PenLine className="h-4 w-4" /> Write a review on Google
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

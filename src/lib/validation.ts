@@ -8,3 +8,12 @@ export function isValidIndianPhone(value: string): boolean {
   const last10 = digits.slice(-10);
   return !/^(\d)\1{9}$/.test(last10);
 }
+
+/** Indian PIN codes: 6 digits, first digit 1-9. */
+export function isValidPinCode(value: string): boolean {
+  return /^[1-9]\d{5}$/.test(value.trim());
+}
+
+export function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+}

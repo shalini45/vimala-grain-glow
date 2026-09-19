@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { products, DELIVERY_CHARGE, FREE_DELIVERY_THRESHOLD } from "@/lib/products";
+import {
+  products,
+  DELIVERY_CHARGE,
+  FREE_DELIVERY_THRESHOLD,
+  MAX_QTY_PER_ITEM,
+} from "@/lib/products";
 
 const STORAGE_KEY = "vfm-cart-v1";
 
@@ -32,7 +37,11 @@ function readStoredCart(): CartLine[] {
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(
       (l): l is CartLine =>
-        l && typeof l.productId === "string" && typeof l.qty === "number" && l.qty > 0,
+        l &&
+        typeof l.productId === "string" &&
+        typeof l.qty === "number" &&
+        l.qty > 0 &&
+        products.some((p) => p.id === l.productId && p.available),
     );
   } catch {
     return [];
@@ -50,21 +59,31 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!hydrated) return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
+    } catch {
+      // Storage can be unavailable (private mode / quota) — the cart still works for this visit.
+    }
   }, [lines, hydrated]);
 
   function add(productId: string, qty = 1) {
     setLines((prev) => {
       const existing = prev.find((l) => l.productId === productId);
       if (existing) {
-        return prev.map((l) => (l.productId === productId ? { ...l, qty: l.qty + qty } : l));
+        return prev.map((l) =>
+          l.productId === productId ? { ...l, qty: Math.min(MAX_QTY_PER_ITEM, l.qty + qty) } : l,
+        );
       }
-      return [...prev, { productId, qty }];
+      return [...prev, { productId, qty: Math.min(MAX_QTY_PER_ITEM, qty) }];
     });
   }
 
   function increase(productId: string) {
-    setLines((prev) => prev.map((l) => (l.productId === productId ? { ...l, qty: l.qty + 1 } : l)));
+    setLines((prev) =>
+      prev.map((l) =>
+        l.productId === productId ? { ...l, qty: Math.min(MAX_QTY_PER_ITEM, l.qty + 1) } : l,
+      ),
+    );
   }
 
   function decrease(productId: string) {

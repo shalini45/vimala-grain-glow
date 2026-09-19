@@ -9,18 +9,20 @@ import { LogoMark } from "./Logo";
 import { CartButton } from "./CartDrawer";
 
 const links = [
-  { href: "#about", id: "about", label: "About" },
-  { href: "#services", id: "services", label: "Services" },
-  { href: "#why", id: "why", label: "Why Us" },
-  { href: "#gallery", id: "gallery", label: "Gallery" },
-  { href: "#products", id: "products", label: "Shop" },
-  { href: "#location", id: "location", label: "Visit" },
-  { href: "#contact", id: "contact", label: "Contact" },
+  { href: "/#about", id: "about", label: "About" },
+  { href: "/#services", id: "services", label: "Services" },
+  { href: "/#why", id: "why", label: "Why Us" },
+  { href: "/#gallery", id: "gallery", label: "Gallery" },
+  { href: "/#products", id: "products", label: "Shop" },
+  { href: "/#location", id: "location", label: "Visit" },
+  { href: "/#contact", id: "contact", label: "Contact" },
 ];
 
-export function Header() {
+/** `solid` forces the opaque header style — use it on pages without a dark hero image. */
+export function Header({ solid = false }: { solid?: boolean }) {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolledPast, setScrolled] = useState(false);
+  const scrolled = solid || scrolledPast;
   const active = useActiveSection(links.map((l) => l.id));
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
-        <a href="#top" className="flex min-w-0 items-center gap-3">
+        <a href="/#top" className="flex min-w-0 items-center gap-3">
           <LogoMark className="h-12 w-12 shrink-0 rounded-full bg-white/90 shadow-[var(--shadow-soft)] ring-1 ring-white/70 transition-transform duration-500 hover:scale-105 sm:h-14 sm:w-14" />
           <span className="flex min-w-0 flex-col leading-tight">
             <span

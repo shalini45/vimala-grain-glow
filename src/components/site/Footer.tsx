@@ -1,4 +1,5 @@
-import { PHONE, ADDRESS, MAPS_URL, waLink } from "@/lib/site-config";
+import { Link } from "@tanstack/react-router";
+import { PHONE, PHONE_DISPLAY, ADDRESS, MAPS_URL, waLink } from "@/lib/site-config";
 import { LogoMark } from "./Logo";
 
 export function Footer() {
@@ -18,21 +19,24 @@ export function Footer() {
         <FooterCol
           title="Quick Links"
           items={[
-            { l: "About", h: "#about" },
-            { l: "Services", h: "#services" },
-            { l: "Gallery", h: "#gallery" },
-            { l: "Visit Us", h: "#location" },
-            { l: "Contact", h: "#contact" },
+            { l: "About", h: "/#about" },
+            { l: "Services", h: "/#services" },
+            { l: "Gallery", h: "/#gallery" },
+            { l: "Shop", h: "/#products" },
+            { l: "Reviews", h: "/#testimonials" },
+            { l: "FAQ", h: "/#faq" },
+            { l: "Visit Us", h: "/#location" },
+            { l: "Contact", h: "/#contact" },
           ]}
         />
         <FooterCol
           title="Services"
           items={[
-            { l: "Wet Grinding", h: "#services" },
-            { l: "Dry Grinding", h: "#services" },
-            { l: "Idli & Dosa Batter", h: "#services" },
-            { l: "Health Mix", h: "#services" },
-            { l: "Bulk Orders", h: "#contact" },
+            { l: "Wet Grinding", h: "/#services" },
+            { l: "Dry Grinding", h: "/#services" },
+            { l: "Idli & Dosa Batter", h: "/#services" },
+            { l: "Health Mix", h: "/#services" },
+            { l: "Bulk Orders", h: "/#contact" },
           ]}
         />
         <div>
@@ -41,7 +45,7 @@ export function Footer() {
             <li>{ADDRESS}</li>
             <li>
               <a href={`tel:${PHONE}`} className="hover:text-white">
-                +91 94809 75441
+                {PHONE_DISPLAY}
               </a>
             </li>
             <li>
@@ -64,8 +68,16 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-5 text-center text-xs text-white/60 sm:px-6">
-          © {new Date().getFullYear()} Vimala Flour Mill · All rights reserved.
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-5 text-xs text-white/60 sm:flex-row sm:px-8">
+          <span>© {new Date().getFullYear()} Vimala Flour Mill · All rights reserved.</span>
+          <nav className="flex gap-5">
+            <Link to="/privacy" className="hover:text-white">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="hover:text-white">
+              Terms &amp; Order Policy
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

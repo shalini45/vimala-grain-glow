@@ -1,11 +1,25 @@
 import { useState } from "react";
-import { Minus, Plus, ShoppingCart, CheckCircle2, MessageCircle, Sparkles } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  ShoppingCart,
+  CheckCircle2,
+  MessageCircle,
+  Sparkles,
+  Truck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
 import { ProductVisual } from "./ProductVisual";
 import { useCart } from "@/hooks/use-cart";
-import { products, type Product } from "@/lib/products";
+import {
+  products,
+  type Product,
+  DELIVERY_CHARGE,
+  FREE_DELIVERY_THRESHOLD,
+  MAX_QTY_PER_ITEM,
+} from "@/lib/products";
 import { toast } from "sonner";
 import { waLink } from "@/lib/site-config";
 
@@ -94,7 +108,7 @@ function ProductCard({ product }: { product: Product }) {
             <button
               type="button"
               aria-label="Increase quantity"
-              onClick={() => setQty((q) => Math.min(20, q + 1))}
+              onClick={() => setQty((q) => Math.min(MAX_QTY_PER_ITEM, q + 1))}
               className="grid h-9 w-9 place-items-center rounded-full text-foreground/70 transition-colors hover:bg-primary/10 hover:text-primary"
             >
               <Plus className="h-3.5 w-3.5" />
@@ -123,9 +137,15 @@ export function Products() {
           title="Fresh Products From Our Mill"
           subtitle="Stone-ground flours, batters and masalas — freshly prepared and delivered to your door."
         />
-        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-          <CheckCircle2 className="h-4 w-4 text-primary" /> Prices shown are indicative — final
-          weight billed at pickup/delivery.
+        <div className="mt-8 flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground sm:flex-row sm:gap-6">
+          <span className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" /> Prices are indicative — final
+            weight billed at pickup/delivery.
+          </span>
+          <span className="flex items-center gap-2">
+            <Truck className="h-4 w-4 shrink-0 text-primary" /> Free delivery on orders of ₹
+            {FREE_DELIVERY_THRESHOLD}+ (₹{DELIVERY_CHARGE} below).
+          </span>
         </div>
         <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {products.map((product, i) => (

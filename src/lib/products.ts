@@ -26,6 +26,8 @@ export interface Product {
 
 export const DELIVERY_CHARGE = 30;
 export const FREE_DELIVERY_THRESHOLD = 500;
+/** Per-product cap for online orders — larger quantities go through a bulk enquiry. */
+export const MAX_QTY_PER_ITEM = 20;
 
 export const products: Product[] = [
   {

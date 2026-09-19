@@ -1,6 +1,7 @@
 import { Calendar, Star, Wheat } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { StatCard } from "./AnimatedCounter";
+import { FREE_DELIVERY_THRESHOLD } from "@/lib/products";
 import { images, GOOGLE_RATING, GOOGLE_REVIEW_COUNT, GOOGLE_REVIEWS_URL } from "@/lib/site-config";
 
 export function About() {
@@ -49,7 +50,8 @@ export function About() {
             <p className="mt-6 text-[17px] leading-[1.9] text-muted-foreground">
               From wheat and ragi to idli batter and freshly ground masalas, we carefully process
               every customer's ingredients to ensure freshness, consistency, and satisfaction —
-              backed by free home delivery in the locality.
+              backed by home delivery in the locality (free on orders of ₹{FREE_DELIVERY_THRESHOLD}
+              and above).
             </p>
           </Reveal>
 

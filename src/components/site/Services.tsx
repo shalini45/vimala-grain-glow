@@ -2,32 +2,7 @@ import { MessageCircle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 import { SectionHeader } from "./SectionHeader";
-import { images, waLink } from "@/lib/site-config";
-
-const WET_SERVICES = [
-  "Idli Batter Grinding",
-  "Dosa Batter Grinding",
-  "Ginger Garlic Paste",
-  "Chutney Grinding",
-  "Bulk Wet Grinding",
-  "Custom Wet Grinding",
-];
-
-const DRY_SERVICES = [
-  "Wheat Flour",
-  "Ragi Flour",
-  "Rice Flour",
-  "Chola Flour",
-  "Chilli Powder",
-  "Coriander Powder",
-  "Sambar Powder",
-  "Health Mix Preparation",
-  "Multi Grain Flour",
-  "Millet Flour",
-  "Ragi Cleaning Services",
-  "Custom Flour Blends",
-  "Bulk Grinding",
-];
+import { images, waLink, WET_SERVICES, DRY_SERVICES } from "@/lib/site-config";
 
 export function Services() {
   return (
@@ -38,6 +13,14 @@ export function Services() {
           title="Wet & Dry Grinding — Done Right"
           subtitle="From everyday flours to special batters and masalas, we grind to your exact requirement."
         />
+        <Reveal>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-[15px] leading-relaxed text-muted-foreground">
+            Bring your own grains or order from us — we offer wheat and ragi flour grinding, idli
+            and dosa batter grinding, masala and health mix grinding for homes, restaurants and
+            caterers across Bangalore, with home delivery around N.S. Layout, Subbanna Palya and
+            nearby areas.
+          </p>
+        </Reveal>
 
         <div className="mt-20 grid gap-10 lg:grid-cols-2">
           <Reveal className="h-full">

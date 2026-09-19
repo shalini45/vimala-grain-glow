@@ -27,7 +27,7 @@ const STEPS = [
 
 export function Process() {
   return (
-    <section className="bg-[color:var(--cream)] py-28 sm:py-36">
+    <section id="process" className="bg-[color:var(--cream)] py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader eyebrow="How It Works" title="Simple, fresh, hassle-free" />
         <div className="relative mt-20">

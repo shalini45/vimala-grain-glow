@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { SectionHeader } from "./SectionHeader";
-import { WHATSAPP } from "@/lib/site-config";
+import { WHATSAPP, PHONE_DISPLAY, WET_SERVICES, DRY_SERVICES } from "@/lib/site-config";
 import { isValidIndianPhone } from "@/lib/validation";
 import { openWhatsApp } from "@/lib/whatsapp";
 
@@ -13,7 +13,8 @@ export function Contact() {
   const [form, setForm] = useState({ name: "", phone: "", service: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const upd =
-    (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (k: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm({ ...form, [k]: e.target.value });
 
   function send(e: React.FormEvent) {
@@ -89,12 +90,29 @@ export function Contact() {
             </Field>
           </div>
           <Field label="Service Required">
-            <Input
+            <select
               value={form.service}
               onChange={upd("service")}
-              placeholder="e.g. Wheat flour grinding, Idli batter, Health mix…"
-              maxLength={120}
-            />
+              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:text-sm"
+            >
+              <option value="">Select a service (optional)</option>
+              <optgroup label="Wet Grinding">
+                {WET_SERVICES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Dry Grinding">
+                {DRY_SERVICES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </optgroup>
+              <option value="Online order / delivery">Online order / delivery</option>
+              <option value="Other">Other</option>
+            </select>
           </Field>
           <Field label="Message">
             <Textarea
@@ -107,7 +125,7 @@ export function Contact() {
           </Field>
           <div className="flex flex-wrap items-center justify-between gap-4 pt-3">
             <p className="text-xs text-muted-foreground">
-              By submitting, your enquiry will open in WhatsApp at +91 94809 75441.
+              By submitting, your enquiry will open in WhatsApp at {PHONE_DISPLAY}.
             </p>
             <Button
               type="submit"

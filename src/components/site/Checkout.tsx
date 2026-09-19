@@ -8,7 +8,8 @@ import { toast } from "sonner";
 import { useCart } from "@/hooks/use-cart";
 import { products } from "@/lib/products";
 import { WHATSAPP } from "@/lib/site-config";
-import { isValidIndianPhone } from "@/lib/validation";
+import { Link } from "@tanstack/react-router";
+import { isValidIndianPhone, isValidPinCode, isValidEmail } from "@/lib/validation";
 import { openWhatsApp } from "@/lib/whatsapp";
 
 interface CheckoutForm {
@@ -95,6 +96,14 @@ export function Checkout({
       toast.error("Please enter a valid 10-digit Indian mobile number.");
       return;
     }
+    if (!isValidPinCode(form.pin)) {
+      toast.error("Please enter a valid 6-digit PIN code.");
+      return;
+    }
+    if (form.email.trim() && !isValidEmail(form.email)) {
+      toast.error("Please enter a valid email address, or leave it blank.");
+      return;
+    }
     if (items.length === 0) {
       toast.error("Your cart is empty.");
       return;
@@ -117,6 +126,7 @@ export function Checkout({
   function confirmSentAndClose() {
     clear();
     setForm(EMPTY_FORM);
+    toast.success("Thank you! We'll confirm your order on WhatsApp shortly.");
     setWaLink(null);
     setWaBlocked(false);
     onOpenChange(false);
@@ -217,6 +227,7 @@ export function Checkout({
                     value={form.name}
                     onChange={upd("name")}
                     placeholder="Your full name"
+                    maxLength={80}
                     required
                   />
                 </Field>
@@ -227,6 +238,7 @@ export function Checkout({
                     placeholder="+91 ..."
                     type="tel"
                     inputMode="tel"
+                    maxLength={20}
                     required
                   />
                 </Field>
@@ -237,6 +249,7 @@ export function Checkout({
                   onChange={upd("email")}
                   placeholder="you@example.com"
                   type="email"
+                  maxLength={120}
                 />
               </Field>
               <Field label="Address *">
@@ -245,18 +258,25 @@ export function Checkout({
                   onChange={upd("address")}
                   placeholder="House / flat no., street"
                   rows={2}
+                  maxLength={300}
                   required
                 />
               </Field>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Area">
-                  <Input value={form.area} onChange={upd("area")} placeholder="e.g. N.S. Layout" />
+                  <Input
+                    value={form.area}
+                    onChange={upd("area")}
+                    placeholder="e.g. N.S. Layout"
+                    maxLength={80}
+                  />
                 </Field>
                 <Field label="Landmark">
                   <Input
                     value={form.landmark}
                     onChange={upd("landmark")}
                     placeholder="Nearby landmark"
+                    maxLength={80}
                   />
                 </Field>
               </div>
@@ -276,12 +296,29 @@ export function Checkout({
                   onChange={upd("instructions")}
                   placeholder="Any special instructions for delivery…"
                   rows={2}
+                  maxLength={300}
                 />
               </Field>
 
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs leading-relaxed text-muted-foreground">
                 No online payment yet — pay on delivery/pickup. Confirm your order on WhatsApp
-                below.
+                below. By placing an order you agree to our{" "}
+                <Link
+                  to="/terms"
+                  className="underline hover:text-primary"
+                  onClick={() => handleOpenChange(false)}
+                >
+                  Terms &amp; Order Policy
+                </Link>{" "}
+                and{" "}
+                <Link
+                  to="/privacy"
+                  className="underline hover:text-primary"
+                  onClick={() => handleOpenChange(false)}
+                >
+                  Privacy Policy
+                </Link>
+                .
               </p>
 
               <Button
