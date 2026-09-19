@@ -6,7 +6,7 @@ import chilliImg from "@/assets/chilli-powder.jpg";
 import healthMixImg from "@/assets/health-mix.jpg";
 import sacksImg from "@/assets/sacks.jpg";
 import machineImg from "@/assets/machine.jpg";
-import vfmInteriorAsset from "@/assets/vfm-interior.png.asset.json";
+import vfmInterior from "@/assets/vimala-interior.jpg";
 import aboutImg from "@/assets/About.png";
 
 export const images = {
@@ -18,7 +18,7 @@ export const images = {
   healthMix: healthMixImg,
   sacks: sacksImg,
   machine: machineImg,
-  vfmInterior: vfmInteriorAsset.url,
+  vfmInterior,
   about: aboutImg,
 };
 
