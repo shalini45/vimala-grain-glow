@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 /** Tracks which of the given section ids is currently in view, for nav highlighting. */
 export function useActiveSection(ids: string[]) {
-  const [active, setActive] = useState<string>(ids[0] ?? "");
+  // Empty until a section is actually in view, so pages without these sections highlight nothing.
+  const [active, setActive] = useState<string>("");
   const idsKey = ids.join(",");
 
   useEffect(() => {

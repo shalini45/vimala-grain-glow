@@ -1,17 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { PHONE, PHONE_DISPLAY, ADDRESS, MAPS_URL, waLink } from "@/lib/site-config";
 import { trackWhatsAppClick } from "@/lib/analytics";
-import { LogoMark } from "./Logo";
+import { LogoFull } from "./Logo";
 
 export function Footer() {
   return (
     <footer className="bg-[oklch(0.24_0.04_55)] text-primary-foreground">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-4">
         <div>
-          <div className="flex items-center gap-3">
-            <LogoMark className="h-12 w-12 shrink-0 rounded-full bg-white/90 shadow-[var(--shadow-soft)]" />
-            <span className="font-[Playfair_Display] text-xl font-bold">Vimala Flour Mill</span>
-          </div>
+          <a
+            href="/#top"
+            className="inline-block rounded-[18px] bg-[color:var(--cream)] px-5 py-4 shadow-[var(--shadow-soft)] ring-1 ring-white/10"
+          >
+            <LogoFull className="w-40" />
+          </a>
           <p className="mt-5 text-[15px] leading-relaxed text-white/70">
             Fresh, hygienic wet & dry grinding in Bangalore. Serving our neighbourhood for over a
             decade.

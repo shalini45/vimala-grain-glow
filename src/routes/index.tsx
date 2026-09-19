@@ -36,7 +36,7 @@ const localBusinessLd = {
   name: BUSINESS_NAME,
   url: abs("/"),
   image: abs("/og-image.jpg"),
-  logo: abs("/favicon.png"),
+  logo: abs("/icon-512.png"),
   telephone: PHONE,
   address: {
     "@type": "PostalAddress",
