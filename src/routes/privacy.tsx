@@ -31,8 +31,8 @@ function PrivacyPage() {
         <p>We only collect the details you choose to give us:</p>
         <ul className="list-disc space-y-1.5 pl-6">
           <li>
-            <strong>Enquiries</strong> — your name, phone number, the service you need and your
-            message.
+            <strong>Enquiries</strong> — your name, phone number, optional email, the service you
+            need and your message.
           </li>
           <li>
             <strong>Orders</strong> — your name, phone number, optional email, delivery address,

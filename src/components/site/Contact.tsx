@@ -16,8 +16,10 @@ export function Contact() {
   const [sent, setSent] = useState(false);
   const upd =
     (k: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      setSent(false);
       setForm({ ...form, [k]: e.target.value });
+    };
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
@@ -43,6 +45,8 @@ export function Contact() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
+          // Web3Forms drops the submission server-side too when this honeypot is filled.
+          botcheck: botField,
           subject: `New enquiry from ${form.name} — ${BUSINESS_NAME} website`,
           from_name: `${BUSINESS_NAME} website`,
           // Lets the owner hit "Reply" and reach the customer, when they gave an email.
