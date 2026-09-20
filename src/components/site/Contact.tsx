@@ -5,21 +5,24 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { SectionHeader } from "./SectionHeader";
-import { WHATSAPP, PHONE_DISPLAY, WET_SERVICES, DRY_SERVICES } from "@/lib/site-config";
-import { isValidIndianPhone } from "@/lib/validation";
-import { openWhatsApp } from "@/lib/whatsapp";
+import { BUSINESS_NAME, WEB3FORMS_ACCESS_KEY, WET_SERVICES, DRY_SERVICES } from "@/lib/site-config";
+import { isValidIndianPhone, isValidEmail } from "@/lib/validation";
 
 export function Contact() {
-  const [form, setForm] = useState({ name: "", phone: "", service: "", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
+  // Honeypot: hidden from people, often filled by bots. A filled value means we drop the submit.
+  const [botField, setBotField] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
   const upd =
     (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm({ ...form, [k]: e.target.value });
 
-  function send(e: React.FormEvent) {
+  async function send(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
+    if (botField) return;
     if (!form.name.trim() || !form.phone.trim()) {
       toast.error("Please share your name and phone number.");
       return;
@@ -28,31 +31,39 @@ export function Contact() {
       toast.error("Please enter a valid 10-digit Indian mobile number.");
       return;
     }
-    setSubmitting(true);
-    const msg = [
-      "*New Enquiry — Vimala Flour Mill*",
-      "",
-      `*Name:* ${form.name}`,
-      `*Phone:* ${form.phone}`,
-      `*Service:* ${form.service || "—"}`,
-      `*Message:* ${form.message || "—"}`,
-    ].join("\n");
-    const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
-    const opened = openWhatsApp(link, "contact_form");
-    if (opened) {
-      toast.success("Opening WhatsApp to send your enquiry…");
-    } else {
-      toast.error(
-        <span>
-          WhatsApp didn't open automatically.{" "}
-          <a href={link} target="_blank" rel="noreferrer" className="underline">
-            Tap here to send your enquiry
-          </a>
-          .
-        </span>,
-      );
+    if (form.email.trim() && !isValidEmail(form.email)) {
+      toast.error("Please enter a valid email address, or leave it blank.");
+      return;
     }
-    setSubmitting(false);
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New enquiry from ${form.name} — ${BUSINESS_NAME} website`,
+          from_name: `${BUSINESS_NAME} website`,
+          // Lets the owner hit "Reply" and reach the customer, when they gave an email.
+          replyto: form.email.trim() || undefined,
+          Name: form.name.trim(),
+          Phone: form.phone.trim(),
+          Email: form.email.trim() || "—",
+          Service: form.service || "—",
+          Message: form.message.trim() || "—",
+        }),
+      });
+      const data = (await res.json()) as { success?: boolean; message?: string };
+      if (!res.ok || !data.success) throw new Error(data.message || "Request failed");
+      setSent(true);
+      setForm({ name: "", phone: "", email: "", service: "", message: "" });
+      toast.success("Thank you — your enquiry has been sent. We'll get back to you shortly.");
+    } catch {
+      toast.error("Sorry, your enquiry couldn't be sent. Please try again, or call us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -61,7 +72,7 @@ export function Contact() {
         <SectionHeader
           eyebrow="Contact"
           title="Send us an enquiry"
-          subtitle="Fill the form and we'll get back on WhatsApp — usually within minutes during business hours."
+          subtitle="Fill the form and we'll get back to you — usually within a few hours during business hours."
         />
         <form
           onSubmit={send}
@@ -89,6 +100,16 @@ export function Contact() {
               />
             </Field>
           </div>
+          <Field label="Email (optional)">
+            <Input
+              value={form.email}
+              onChange={upd("email")}
+              placeholder="you@example.com"
+              type="email"
+              inputMode="email"
+              maxLength={120}
+            />
+          </Field>
           <Field label="Service Required">
             <select
               value={form.service}
@@ -123,9 +144,22 @@ export function Contact() {
               maxLength={1000}
             />
           </Field>
+          {/* Honeypot — kept out of the layout and out of the tab order, invisible to real users. */}
+          <input
+            type="text"
+            name="botcheck"
+            value={botField}
+            onChange={(e) => setBotField(e.target.value)}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
           <div className="flex flex-wrap items-center justify-between gap-4 pt-3">
             <p className="text-xs text-muted-foreground">
-              By submitting, your enquiry will open in WhatsApp at {PHONE_DISPLAY}.
+              {sent
+                ? "Enquiry sent — we've received your details by email."
+                : "Your enquiry is sent to us by email. We'll reply by phone or email."}
             </p>
             <Button
               type="submit"
@@ -133,7 +167,7 @@ export function Contact() {
               disabled={submitting}
               className="glass-cta rounded-full bg-transparent text-[oklch(0.2_0.04_55)] px-8 font-semibold hover:bg-transparent disabled:opacity-60"
             >
-              <Send className="mr-2 h-4 w-4" /> {submitting ? "Opening WhatsApp…" : "Send Enquiry"}
+              <Send className="mr-2 h-4 w-4" /> {submitting ? "Sending…" : "Send Enquiry"}
             </Button>
           </div>
         </form>

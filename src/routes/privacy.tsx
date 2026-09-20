@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage, LegalSection } from "@/components/site/LegalPage";
 import { ADDRESS, PHONE, PHONE_DISPLAY, waLink } from "@/lib/site-config";
 
-// Plain-language policy describing how the site actually handles data today (WhatsApp-based
-// enquiries/orders, cart in browser storage, no online payments). Update it when online payment,
-// accounts or analytics are added.
+// Plain-language policy describing how the site actually handles data today (enquiries by email
+// via Web3Forms, orders over WhatsApp, cart in browser storage, no online payments). Update it
+// when online payment, accounts or analytics are added.
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
@@ -47,11 +47,16 @@ function PrivacyPage() {
 
       <LegalSection title="How your information is sent to us">
         <p>
-          When you submit an enquiry or place an order, the website prepares a WhatsApp message with
-          your details and opens WhatsApp on your device. Nothing is sent until you press send in
-          WhatsApp. That message is then handled under WhatsApp's own privacy policy. This website
-          does not store your enquiry or order on a server.
+          When you submit the enquiry form, your details are sent to our business email inbox. We
+          use a form-delivery service, Web3Forms, to pass the message on to us; it handles the
+          message under its own privacy policy and does not use your details for anything else.
         </p>
+        <p>
+          When you place an order from the shop, the website prepares a WhatsApp message with your
+          order details and opens WhatsApp on your device. Nothing is sent until you press send in
+          WhatsApp, and that message is then handled under WhatsApp's own privacy policy.
+        </p>
+        <p>This website does not store your enquiry or order on a server of its own.</p>
       </LegalSection>
 
       <LegalSection title="How we use your information">
@@ -77,8 +82,9 @@ function PrivacyPage() {
       <LegalSection title="Third-party services">
         <p>
           The website loads Google Maps to show our location and Google Fonts for text. Links open
-          WhatsApp and Google Maps. These services may collect technical information such as your IP
-          address, under their own privacy policies. We do not use advertising or tracking cookies.
+          WhatsApp and Google Maps, and enquiry form submissions are delivered to our inbox by
+          Web3Forms. These services may collect technical information such as your IP address, under
+          their own privacy policies. We do not use advertising or tracking cookies.
         </p>
       </LegalSection>
 

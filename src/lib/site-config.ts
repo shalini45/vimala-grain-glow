@@ -49,6 +49,15 @@ export const SITE_URL = ((import.meta.env.VITE_SITE_URL as string | undefined) ?
   "",
 );
 
+/**
+ * Web3Forms access key for the contact form. It is tied to the business inbox and is meant to be
+ * public (it ships in the browser bundle); it only lets a form post an email to that one address.
+ * Override with VITE_WEB3FORMS_ACCESS_KEY if the key is ever rotated.
+ */
+export const WEB3FORMS_ACCESS_KEY =
+  (import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined) ??
+  "6a4c842a-1f48-481f-9827-e10aafc364a1";
+
 export const WET_SERVICES = [
   "Idli Batter Grinding",
   "Dosa Batter Grinding",
